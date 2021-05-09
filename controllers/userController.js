@@ -137,6 +137,23 @@ const userCtrl = {
 			return res.status(500).json({ msg: error.message });
 		}
 	},
+	getUserInfo: async (req, res) => {
+		try {
+			const user = await await Users.findById(req.user.id).select('-password');
+
+			res.json(user);
+		} catch (error) {
+			return res.status(500).json({ msg: error.message });
+		}
+	},
+	getUsersAllInfo: async (req, res) => {
+		try {
+			const users = await Users.find().select('-password');
+			res.json(users);
+		} catch (error) {
+			return res.status(500).json({ msg: error.message });
+		}
+	},
 };
 
 function validateEmail(email) {
