@@ -36,7 +36,7 @@ const userCtrl = {
 
 			const url = `${CLIENT_URL}/user/activate/${activation_token}`;
 
-			sendEmail(email, url);
+			sendEmail(email, url, 'Click here');
 
 			res.json({ msg: 'Register success, Please activate you email to start' });
 		} catch (error) {
@@ -101,6 +101,38 @@ const userCtrl = {
 
 				res.json({ access_token });
 			});
+		} catch (error) {
+			return res.status(500).json({ msg: error.message });
+		}
+	},
+	forgotPassword: async (req, res) => {
+		try {
+			const { email } = req.body;
+			const user = await Users.findOne({ email });
+			if (!user) return res.status(400).json({ msg: 'This email does not exist' });
+
+			const access_token = createAccessToken({ id: user._id });
+			const url = `${CLIENT_URL}/user/reset/${access_token}`;
+
+			sendEmail(email, url, 'Reset your password');
+
+			res.json({ msg: 'Re-send the password, please check your mail' });
+		} catch (error) {
+			return res.status(500).json({ msg: error.message });
+		}
+	},
+	resetPassword: async (req, res) => {
+		try {
+			const { password } = req.body;
+			const passwordHash = await bcrypt.hash(password, 12);
+
+			await Users.findOneAndUpdate(
+				{ _id: req.user.id },
+				{
+					password: passwordHash,
+				}
+			);
+			res.json({ msg: 'Password successfully changed' });
 		} catch (error) {
 			return res.status(500).json({ msg: error.message });
 		}
