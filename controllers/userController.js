@@ -69,6 +69,42 @@ const userCtrl = {
 			return res.status(500).json({ msg: error.message });
 		}
 	},
+	login: async (req, res) => {
+		try {
+			const { email, password } = req.body;
+			const user = await Users.findOne({ email });
+			if (!user) return res.status(400).json({ msg: 'This email does not exist' });
+
+			const isMatch = await bcrypt.compare(password, user.password);
+			if (!isMatch) return res.status(400).json({ msg: 'Password is incorrect' });
+
+			const refresh_token = createRefreshToken({ id: user._id });
+			res.cookie('refreshtoken', refresh_token, {
+				httpOnly: true,
+				path: '/user/refresh_token',
+				maxAge: 7 * 24 * 60 * 60 * 1000,
+			});
+			res.json({ msg: 'Login success!' });
+		} catch (error) {
+			return res.status(500).json({ msg: error.message });
+		}
+	},
+	getAccessToken: async (req, res) => {
+		try {
+			const rf_token = req.cookies.refreshtoken;
+			if (!rf_token) return res.status(400).json({ msg: 'Please login now' });
+
+			jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+				if (err) return res.status(400).json({ msg: 'Please login now' });
+
+				const access_token = createAccessToken({ id: user.id });
+
+				res.json({ access_token });
+			});
+		} catch (error) {
+			return res.status(500).json({ msg: error.message });
+		}
+	},
 };
 
 function validateEmail(email) {
