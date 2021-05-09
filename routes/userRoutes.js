@@ -19,4 +19,6 @@ router.get('/info', auth, userCtrl.getUserInfo);
 
 router.get('/all_info', auth, authAdmin, userCtrl.getUserInfo);
 
+router.get('/logout', userCtrl.logout);
+
 module.exports = router;
