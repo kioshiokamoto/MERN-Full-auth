@@ -162,6 +162,43 @@ const userCtrl = {
 			return res.status(500).json({ msg: error.message });
 		}
 	},
+	updateUser: async (req, res) => {
+		try {
+			const { name, avatar } = req.body;
+			await Users.findByIdAndUpdate(
+				{ _id: req.user.id },
+				{
+					name,
+					avatar,
+				}
+			);
+			res.json({ msg: 'Update success' });
+		} catch (error) {
+			return res.status(500).json({ msg: error.message });
+		}
+	},
+	updateUsersRole: async (req, res) => {
+		try {
+			const { role } = req.body;
+			await Users.findByIdAndUpdate(
+				{ _id: req.params.id },
+				{
+					role,
+				}
+			);
+			res.json({ msg: 'Update success' });
+		} catch (error) {
+			return res.status(500).json({ msg: error.message });
+		}
+	},
+	deleteUser: async (req, res) => {
+		try {
+			await Users.findByIdAndDelete(req.params.id);
+			return res.json({ msg: 'Deleted success' });
+		} catch (error) {
+			return res.status(500).json({ msg: error.message });
+		}
+	},
 };
 
 function validateEmail(email) {
