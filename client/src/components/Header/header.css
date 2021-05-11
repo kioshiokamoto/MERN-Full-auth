@@ -1,0 +1,23 @@
+header {
+	width: 100%;
+	min-height: 100px;
+	background: #282d34;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 0 30px;
+}
+header a {
+	color: #fafafa;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+}
+header ul li {
+	display: inline-block;
+	padding: 10px 20px;
+	opacity: 0.7;
+}
+header ul li:hover {
+	opacity: 1;
+}

@@ -1,15 +1,34 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #282c34;
-  color: white;
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+*,
+html {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Raleway', sans-serif;
+}
+.App {
+	max-width: 1200px;
+	width: 100%;
+	min-height: 100vh;
+	box-shadow: 0 0 20px #eee;
+	margin: 0 auto;
+	overflow: hidden;
+}
+a {
+	text-decoration: none;
+}
+ul {
+	list-style: none;
+}
+button {
+	border: none;
+	outline: none;
+	cursor: pointer;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+/* Header */
+
+@import url('./components/Header/header.css');
+
+/* Login */
+@import url('./components/Body/auth/auth.css');
