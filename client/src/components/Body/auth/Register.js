@@ -2,18 +2,19 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { dispatchLogin } from '../../../redux/actions/authAction';
 import { showErrMsg, showSuccessMsg } from '../../utils/notification/Notification';
-
+import { isEmail, isEmpty, isLength, isMatch } from '../../utils/validation/Validation';
 const initialState = {
+	name: '',
 	email: '',
 	password: '',
+	cf_password: '',
 	err: '',
 	success: '',
 };
-export default function Login({ history }) {
+export default function Register({ history }) {
 	const [user, setUser] = useState(initialState);
-	const { email, password, err, success } = user;
+	const { name, email, password, cf_password, err, success } = user;
 	const dispatch = useDispatch();
 
 	const handleInputChange = (e) => {
@@ -27,16 +28,45 @@ export default function Login({ history }) {
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (isEmpty(name) || isEmpty(password)) {
+			return setUser({
+				...user,
+				success: '',
+				err: 'Please fill in all fields',
+			});
+		}
+		if (!isEmail(email)) {
+			return setUser({
+				...user,
+				success: '',
+				err: 'Invalid email',
+			});
+		}
+		if (isLength(password)) {
+			return setUser({
+				...user,
+				success: '',
+				err: 'Password must be at least 6 characters',
+			});
+		}
+		if (isMatch(password, cf_password)) {
+			return setUser({
+				...user,
+				success: '',
+				err: 'Password dit not match',
+			});
+		}
 		try {
-			const res = await axios.post('/user/login', { email, password });
+			const res = await axios.post('/user/register', {
+				name,
+				email,
+				password,
+			});
 			setUser({
 				...user,
 				success: res.data.msg,
 			});
-
-			localStorage.setItem('firstLogin', true);
-			dispatch(dispatchLogin());
-			history.push('/');
+			//history.push('/');
 		} catch (error) {
 			error.response.data.msg &&
 				setUser({
@@ -49,10 +79,21 @@ export default function Login({ history }) {
 
 	return (
 		<div className="login_page">
-			<h2>Login</h2>
+			<h2>Register</h2>
 			{err && showErrMsg(err)}
 			{success && showSuccessMsg(success)}
 			<form onSubmit={handleSubmit}>
+				<div>
+					<label htmlFor="email">Name</label>
+					<input
+						type="text"
+						placeholder="Enter your name"
+						id="name"
+						value={name}
+						name="name"
+						onChange={handleInputChange}
+					/>
+				</div>
 				<div>
 					<label htmlFor="email">Email Address</label>
 					<input
@@ -76,13 +117,25 @@ export default function Login({ history }) {
 						onChange={handleInputChange}
 					/>
 				</div>
+
+				<div>
+					<label htmlFor="cf_password">Confirm password</label>
+					<input
+						type="password"
+						placeholder="Confirm password"
+						id="cf_password"
+						value={cf_password}
+						name="cf_password"
+						onChange={handleInputChange}
+					/>
+				</div>
+
 				<div className="row">
-					<button type="submit">Login</button>
-					<Link to="/forgot_password">Forgot your password?</Link>
+					<button type="submit">Register</button>
 				</div>
 			</form>
 			<p>
-				Does not have an account? <Link to="/register">Register</Link>
+				Already an account? <Link to="/login">Login</Link>
 			</p>
 		</div>
 	);
