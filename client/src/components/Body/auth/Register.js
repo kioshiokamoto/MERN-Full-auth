@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { showErrMsg, showSuccessMsg } from '../../utils/notification/Notification';
 import { isEmail, isEmpty, isLength, isMatch } from '../../utils/validation/Validation';
@@ -15,7 +14,6 @@ const initialState = {
 export default function Register({ history }) {
 	const [user, setUser] = useState(initialState);
 	const { name, email, password, cf_password, err, success } = user;
-	const dispatch = useDispatch();
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
