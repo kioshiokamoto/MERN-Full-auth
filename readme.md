@@ -20,4 +20,41 @@ Aplicacion con autenticacion, inicio de sesion, registro, verificacion de correo
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Preview 1](https://github.com/kioshiokamoto/MERN-Full-auth/blob/main/preview/1.png?raw=true)
+![Preview 2](https://github.com/kioshiokamoto/MERN-Full-auth/blob/main/preview/2.png?raw=true)
+
+## Ejecutar localmente
+
+Clonar proyecto
+
+```bash
+  git clone https://github.com/kioshiokamoto/MERN-Full-auth
+```
+
+Ir a ruta de proyecto
+
+```bash
+  cd MERN-Full-auth
+```
+
+Instalar dependencias
+
+```bash
+  npm install && cd client && npm install
+```
+
+Iniciar servidor
+
+```bash
+  npm run dev
+```
+
+Iniciar cliente
+
+```bash
+  cd client && npm start
+```
+
+### Referencia de proyecto:
+
+[Dev A.T Viet Nam](https://www.youtube.com/channel/UCGRDayozk2qch3vw-qAtQng)
