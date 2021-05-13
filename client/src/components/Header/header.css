@@ -45,6 +45,9 @@ header ul li img {
 	top: 50px;
 	display: none;
 }
+.drop-nav .dropdown li {
+	display: block;
+}
 .drop-nav:hover .dropdown {
 	display: block;
 }

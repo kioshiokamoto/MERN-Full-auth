@@ -8,12 +8,14 @@ import ForgotPassword from './auth/ForgotPassword';
 import ResetPassword from './auth/ResetPassword';
 import Profile from './profile/Profile';
 import EditUser from './profile/EditUser';
+import Home from './home/Home';
 export default function Body() {
 	const auth = useSelector((state) => state.auth);
 	const { isLogged } = auth;
 	return (
 		<section>
 			<Switch>
+				<Route path="/" component={Home} exact />
 				<Route path="/login" component={isLogged ? NotFound : Login} exact />
 				<Route path="/register" component={isLogged ? NotFound : Register} exact />
 				<Route path="/forgot_password" component={isLogged ? NotFound : ForgotPassword} exact />
