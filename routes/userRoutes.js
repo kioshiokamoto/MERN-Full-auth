@@ -17,7 +17,7 @@ router.post('/reset', auth, userCtrl.resetPassword);
 
 router.get('/info', auth, userCtrl.getUserInfo);
 
-router.get('/all_info', auth, authAdmin, userCtrl.getUserInfo);
+router.get('/all_info', auth, authAdmin, userCtrl.getUsersAllInfo);
 
 router.get('/logout', userCtrl.logout);
 

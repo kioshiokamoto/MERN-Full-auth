@@ -32,3 +32,6 @@ button {
 
 /* Login */
 @import url('./components/Body/auth/auth.css');
+
+/* Profile */
+@import url('./components/Body/profile/profile.css');
