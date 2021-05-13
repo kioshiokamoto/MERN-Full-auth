@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { dispatchLogin } from '../../../redux/actions/authAction';
 import { showErrMsg, showSuccessMsg } from '../../utils/notification/Notification';
+import GoogleLogin from 'react-google-login';
 
 const initialState = {
 	email: '',
@@ -33,6 +34,23 @@ export default function Login({ history }) {
 				...user,
 				success: res.data.msg,
 			});
+
+			localStorage.setItem('firstLogin', true);
+			dispatch(dispatchLogin());
+			history.push('/');
+		} catch (error) {
+			error.response.data.msg &&
+				setUser({
+					...user,
+					success: '',
+					err: error.response.data.msg,
+				});
+		}
+	};
+	const responseGoogle = async (response) => {
+		try {
+			const res = await axios.post('/user/google_login', { tokenId: response.tokenId });
+			setUser({ ...user, err: '', success: res.data.msg });
 
 			localStorage.setItem('firstLogin', true);
 			dispatch(dispatchLogin());
@@ -81,6 +99,16 @@ export default function Login({ history }) {
 					<Link to="/forgot_password">Forgot your password?</Link>
 				</div>
 			</form>
+			<div className="hr">Or login with</div>
+			<div className="social">
+				<GoogleLogin
+					clientId="84442092858-5a91oi01ip9pb0cri1qlt5r5mh6d16bl.apps.googleusercontent.com"
+					buttonText="Login with google"
+					onSuccess={responseGoogle}
+					onFailure={responseGoogle}
+					cookiePolicy={'single_host_origin'}
+				/>
+			</div>
 			<p>
 				Does not have an account? <Link to="/register">Register</Link>
 			</p>
