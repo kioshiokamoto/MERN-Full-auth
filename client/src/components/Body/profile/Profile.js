@@ -236,7 +236,7 @@ function Profile() {
 											<td>{user.name}</td>
 											<td>{user.email}</td>
 											<td>
-												{user.role === 1 ? (
+												{user.role === '1' ? (
 													<i className="fas fa-check" title="Admin"></i>
 												) : (
 													<i className="fas fa-times" title="User"></i>
