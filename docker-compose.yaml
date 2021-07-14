@@ -1,18 +1,5 @@
 version: "3"
 services:
-  mongo:
-    container_name: mongo
-    image: mongo
-    ports:
-      - "27018:27017"
-  app:
-    container_name: proj_node
-    restart: always
-    build: ./server
-    ports:
-      - "5000:5000"
-    links:
-      - mongo
   client:
     container_name: frontend
     restart: always
@@ -21,3 +8,17 @@ services:
       - "3000:3000"
     links:
       - app
+  app:
+    container_name: proj_node
+    restart: always
+    build: ./server
+    env_file: ./.env
+    ports:
+      - "5000:5000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27019:27017"

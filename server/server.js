@@ -21,6 +21,7 @@ app.use("/api", require("./routes/upload"));
 
 //Connect DB
 const URI = process.env.MONGODB_URL;
+const PORT = process.env.PORT;
 mongoose.connect(
   URI,
   {
@@ -30,13 +31,12 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   (err) => {
-    console.log("Ingresa a conectarse");
+    console.log("Ingresa a conectarse: ", URI, "Correcto");
     if (err) throw err;
     console.log("Connected to mongo db");
+    app.listen(PORT, () => {
+      console.log(" Puerto mongo: ", URI);
+      console.log("Servidor corriendo en puerto ", PORT);
+    });
   }
 );
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log("Server is running on port ", PORT);
-});
