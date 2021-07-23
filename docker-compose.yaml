@@ -5,18 +5,43 @@ services:
     restart: always
     build: ./client
     ports:
-      - "3000:3000"
+      - "80:3000"
     links:
-      - app
-  app:
-    container_name: proj_node
+      - lb
+  app_1:
+    container_name: proj_node_1
     restart: always
     build: ./server
     env_file: ./.env
-    ports:
-      - "5000:5000"
+    environment:
+      - PORT=5001
     links:
       - mongo
+  app_2:
+    container_name: proj_node_2
+    restart: always
+    build: ./server
+    env_file: ./.env
+    environment:
+      - PORT=5002
+    links:
+      - mongo
+  app_3:
+    container_name: proj_node_3
+    restart: always
+    build: ./server
+    env_file: ./.env
+    environment:
+      - PORT=5003
+    links:
+      - mongo
+  lb:
+    image: haproxy
+    container_name: load_balancer
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./haproxy:/usr/local/etc/haproxy
   mongo:
     container_name: mongo
     image: mongo
