@@ -1,3 +1,5 @@
+![MERN-Full-auth](https://socialify.git.ci/kioshiokamoto/MERN-Full-auth/image?font=Source%20Code%20Pro&language=1&owner=1&pattern=Floating%20Cogs&theme=Dark)
+
 # FullAuthApp
 
 Aplicacion con autenticacion, inicio de sesion, registro, verificacion de correo, Olvido de clave, Google, Facebook, roles.
@@ -10,13 +12,13 @@ Aplicacion con autenticacion, inicio de sesion, registro, verificacion de correo
 
 ## Features
 
--   Registro/Iniciar sesion
+- Registro/Iniciar sesion
 
--   Inicio de sesion con google
+- Inicio de sesion con google
 
--   Inicio de sesion con facebook
+- Inicio de sesion con facebook
 
--   CRUD app
+- CRUD app
 
 ## Screenshots
 
