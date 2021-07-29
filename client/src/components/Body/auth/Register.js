@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { showErrMsg, showSuccessMsg } from '../../utils/notification/Notification';
 import { isEmail, isEmpty, isLength, isMatch } from '../../utils/validation/Validation';
+import { Button, ButtonGroup } from "@chakra-ui/react"
 const initialState = {
 	name: '',
 	email: '',
@@ -131,6 +132,7 @@ export default function Register({ history }) {
 				<div className="row">
 					<button type="submit">Register</button>
 				</div>
+				<Button variant="secondary">Pruebas</Button>
 			</form>
 			<p>
 				Already an account? <Link to="/login">Login</Link>
