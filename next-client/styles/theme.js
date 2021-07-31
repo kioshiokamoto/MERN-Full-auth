@@ -17,6 +17,7 @@ export const newTheme = extendTheme({
     highlight: "#00C9A7",
     circleicons: "#E1E9F0",
     letter: "#525252",
+    letterSecondary: "#5B697A",
     danger: "#EF4444",
     warning: "#FCD34D",
     success: "#34D399",

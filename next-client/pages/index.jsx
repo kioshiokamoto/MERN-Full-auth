@@ -7,6 +7,7 @@ import Hero from "../sections/Home/Hero"
 // import JoinUs from "../sections/Home/JoinUs"
 // import FeaturedServices from "../sections/Home/FeaturedServices"
 import Layout from "../components/Layout"
+import Products from "../sections/Home/Products"
 
 SwiperCore.use([Autoplay, Navigation])
 
@@ -20,6 +21,7 @@ export default function Home() {
       </Head>
       <Layout withNav withFooter>
         <Hero/>
+        <Products/>
       </Layout>
     </div>
   )

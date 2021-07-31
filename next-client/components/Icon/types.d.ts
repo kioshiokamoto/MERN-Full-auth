@@ -17,6 +17,7 @@ export type ColorName =
   | "gray"
   | "success"
   | "info"
+  | "icon"
 export type IconName =
   | "more-h"
   | "more-v"
@@ -72,6 +73,7 @@ export type IconName =
   | "arrow-leftv2"
   | "avatar"
   | "ring"
+  | "cart"
 
 /**
  * Props SVG, incluyendo name, color, size y weight. No se debe usar el prop style.

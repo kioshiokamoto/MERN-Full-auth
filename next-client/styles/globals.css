@@ -4,10 +4,13 @@
   --gray:#525252;
   --white:#FFFF;
   --shadow:-2px 0 10px 0 rgba(0, 0, 0, 0.11);
+  --letter:#525252;
+  --letterSecondary:#5B697A;
   --danger:#EF4444;
   --warning: #FCD34D;
   --success: #34D399;
   --info:#3B82F6;
+  --icon:#454545;
 }
 
 html,
