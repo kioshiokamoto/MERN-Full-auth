@@ -3,7 +3,7 @@ services:
   client:
     container_name: frontend
     restart: always
-    build: ./client
+    build: ./next-client
     ports:
       - "80:3000"
     links:
