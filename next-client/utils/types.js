@@ -1,0 +1,25 @@
+/* istanbul ignore file */
+export const errorForm = {
+    EMPTY_NAME: "Nombre es requerido",
+    EMPTY_LASTNAME: "Apellido es requerido",
+    EMPTY_EMAIL: "Correo electronico es requerido",
+    EMPTY_TEXT_AREA: "El contenido es requerido",
+    EMPTY_PRICE: "El precio es requerido",
+    EMPTY_PASSWORD: "Contraseña es requerida",
+    EMPTY_CATEGORY: "La categoría es requerida",
+    EMPTY_TAG: "Es necesario ingresar al menos un tag",
+    EMPTY_RATE: "Puntuación requerida",
+    EMPTY_ISSUE: "Asunto es requerido",
+    EMPTY_DATE: "Fecha es requerida",
+    EMPTY_BUDGET: "Presupuesto es requerido",
+    INVALID_NAME: "Ingrese un nombre válido",
+    INVALID_LASTNAME: "Ingrese un apellido válido",
+    INVALID_EMAIL: "Correo electronico inválido",
+    INVALID_TEXT_AREA: "Contenido inválido",
+    INVALID_PRICE: "Precio inválido",
+    INVALID_FILE: "Debe seleccionar 5 archivos",
+    INVALID_ISSUE: "Ingrese un asunto válido",
+    INVALID_BUDGET: "Ingrese un presupuesto válido",
+    SHORT_PASSWORD: "La contraseña debe ser de 7 carateres o más",
+    UNMATCH_PASSWORD: "La contraseña no coinciden"
+  }

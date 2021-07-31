@@ -1,9 +1,23 @@
+:root{
+  --primary: #E8B587;
+  --secondary: #FBD76D;
+  --gray:#525252;
+  --white:#FFFF;
+  --shadow:-2px 0 10px 0 rgba(0, 0, 0, 0.11);
+  --danger:#EF4444;
+  --warning: #FCD34D;
+  --success: #34D399;
+  --info:#3B82F6;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  box-sizing: border-box;
+  background-color:var(--primary);
+  overflow-x: hidden;
+
 }
 
 a {
@@ -13,4 +27,31 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.buttonDisabledPrimary:disabled:hover{
+  background-color: var(--primary) !important;
+}
+.buttonDisabledSecondary:disabled:hover{
+  background-color: var(--secondary) !important;
+}
+
+.generalWrapper{
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: auto;
+  padding: 0 40px;
+}
+
+@media only screen and (max-width: 300px) {
+  .generalWrapper {
+    padding: 0;
+  }
+}
+
+.flexCenterCustom{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
