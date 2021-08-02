@@ -14,12 +14,14 @@ import {
   PopoverHeader,
   PopoverBody,
   PopoverArrow,
+  Circle,
   PopoverCloseButton
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { DataContext } from "../store/GlobalState"
 import React, { useContext } from "react"
 import { get } from "../utils/http"
+import DrawerCart from "./DrawerCart"
 
 export default function Navbar() {
   const router = useRouter()
@@ -46,51 +48,25 @@ export default function Navbar() {
       //   </Flex>
       // </ul>
       <Flex align="center">
-        <Popover placement="bottom-end">
-          <PopoverTrigger>
-            <Box px="4" position="relative">
-              {/* <ZIcon name="ring" color="primary" size={20} pointer /> */}
-              <Text cursor="pointer">Mis mensajes</Text>
-              <Box
-                h="2"
-                w="2"
-                bg="red"
-                borderRadius="50"
-                position="absolute"
-                top="0.5"
-                left="120px"
-              ></Box>
+        <Circle
+            w="40px"
+            h="40px"
+            backgroundColor="primary"
+            boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
+            cursor="pointer"
+            mx="3"
+            position="relative"
+            >
+            <ZIcon name="cart" color="icon" />
+            <Box w="5" h="5" backgroundColor="red" borderRadius="full" d="flex" alignItems="center" justifyContent="center" position="absolute" top="-1" right="-1">
+              <Text fontSize="xs" color="white">1</Text>
             </Box>
-          </PopoverTrigger>
-          <PopoverContent w="150" _focus={{ outline: "none" }}>
-            <PopoverArrow />
-            <PopoverCloseButton
-              _focus={{ outline: "none" }}
-              _active={{ outline: "none" }}
-            />
-            <PopoverHeader>
-              <Text color="gray">Mis notificaciones (3)</Text>
-            </PopoverHeader>
-            <PopoverBody>
-              <Box h="200" overflow="auto" minW="xl">
-                {[1, 2, 3, 4, 5, 6].map((notifElement, idx) => (
-                  <Flex color="gray" align="center" py="1" minW="80" key={idx}>
-                    <ZIcon name="avatar" color="primary" size={35} />
-                    <Text px="4">
-                      <b style={{ color: "var(--secondary)" }}>Juancho</b> - Se
-                      acaba de publicar un evento:{" "}
-                      <b style={{ color: "var(--secondary)" }}>Matrimonio</b>
-                    </Text>
-                  </Flex>
-                ))}
-              </Box>
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
+        </Circle>
+        <Text>Camila Rosales</Text>
         <Popover placement="bottom-end">
           <PopoverTrigger>
             <Box px="4">
-              <ZIcon name="avatar" color="primary" size={25} pointer />
+              <ZIcon name="avatar" color="primary" size={40} pointer />
             </Box>
           </PopoverTrigger>
           <PopoverContent w="38" _focus={{ outline: "none" }}>
@@ -100,7 +76,7 @@ export default function Navbar() {
                 variant="secondary"
                 w="100px"
                 onClick={() => {
-                  router.push("/mostrar-datos")
+                  router.push("/")
                 }}
                 my="2"
               >
@@ -133,15 +109,28 @@ export default function Navbar() {
               <a>Home</a>
             </Link>
           </li>
+
+          {
+            authReady ? (
+              <>
+              {
+                Object.keys(auth).length === 0 ? (
+                  null
+                ) : (
+                  <li
+                  className={`${activeRoute === "mis-compras" && styles.active}`}
+                  id="explorar"
+                >
+                  <Link href="/mis-compras">
+                    <a>Mis compras</a>
+                  </Link>
+                </li>
+              )              }
+              </>
+            ) : null
+          }
+
           {/* <li
-            className={`${activeRoute === "explorar" && styles.active}`}
-            id="explorar"
-          >
-            <Link href="/explorar">
-              <a>Explorar anuncio</a>
-            </Link>
-          </li>
-          <li
             className={`${activeRoute === "publicar" && styles.active}`}
             id="publicar"
           >
@@ -150,6 +139,7 @@ export default function Navbar() {
             </Link>
           </li> */}
         </ul>
+        <DrawerCart/>
         {authReady ? (
           <>
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
