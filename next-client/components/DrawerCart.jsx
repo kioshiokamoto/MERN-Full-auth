@@ -13,6 +13,7 @@ import {
   } from "@chakra-ui/react"
 import {useRef} from 'react'
 import ZIcon from './Icon'
+import ItemCart from "./ItemCart"
 export default function DrawerCart() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
@@ -25,9 +26,10 @@ export default function DrawerCart() {
         <Drawer isOpen={isOpen}
         placement="right"
         onClose={onClose}
-        finalFocusRef={btnRef}>
-          <DrawerOverlay />
-          <DrawerContent>
+        finalFocusRef={btnRef}
+        size="md">
+          <DrawerOverlay/>
+          <DrawerContent >
             <DrawerCloseButton _focus={{outline:'none'}}/>
             <DrawerHeader borderBottomWidth="1px">
                 <Flex align="center" justify="center" py="10">  
@@ -36,9 +38,12 @@ export default function DrawerCart() {
                 </Flex>
             </DrawerHeader>
             <DrawerBody>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
+              {
+                  [1,2,3,4,5,6].map( item => (
+                      <ItemCart/>
+                  ))
+              }
+              <Text textAlign="end" color="letter" py="4">Monto total a pagar: S/. 300</Text>
             </DrawerBody>
             <DrawerFooter>
                 <Button type="submit" form="my-form" variant="primary" color="letter" isFullWidth>
