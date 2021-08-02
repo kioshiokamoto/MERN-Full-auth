@@ -11,15 +11,31 @@ import {
     Text,
     Flex,
     Circle,
-    Box
+    Box, 
+    Input,
+    InputGroup,
+    InputLeftAddon
   } from "@chakra-ui/react"
-import {useRef} from 'react'
+import {useRef, useState} from 'react'
+import BuyModal from "./BuyModal"
 import ZIcon from './Icon'
 import ItemCart from "./ItemCart"
 export default function DrawerCart({icon}) {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const btnRef = useRef()
-  
+  const [openBuyModal, setOpenBuyModal] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef()
+  const handleBuy = () =>{
+    setOpenBuyModal(true)
+  }
+
+  const handlePay = (result)=>{
+    if(result === true){
+      console.log('comprado')
+    }else if(result === false){
+    setOpenBuyModal(false)
+    }
+  }
+
     return (
       <>
         {/* <Button colorScheme="blue" onClick={onOpen} ref={btnRef}>
@@ -64,12 +80,25 @@ export default function DrawerCart({icon}) {
               <Text textAlign="end" color="letter" py="4">Monto total a pagar: S/. 300</Text>
             </DrawerBody>
             <DrawerFooter>
-                <Button type="submit" form="my-form" variant="primary" color="letter" isFullWidth>
+                <Button type="submit" form="my-form" variant="primary" color="letter" isFullWidth onClick={handleBuy}>
                 Efectuar compra
                 </Button>
             </DrawerFooter>
             </DrawerContent>
         </Drawer>
+        {
+          openBuyModal && (
+            <BuyModal icon="bill" title="Efectuar compra" callbackFunction={handlePay}>
+              <Box d="flex" flexDirection="column" justifyContent="center" alignItems="center">
+                <Text pb="4">Ingrese su N° de tarjeta para finalizar</Text>
+                <InputGroup d="flex" justifyContent="center">
+                  <InputLeftAddon children="Nro." />
+                  <Input type="text" placeholder="YYYY YYYY YYYY YYYY" w="70%"/>
+                </InputGroup>
+              </Box>
+            </BuyModal>
+          )
+        }
       </>
     )
 }

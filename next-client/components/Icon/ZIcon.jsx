@@ -57,6 +57,7 @@ import ArrowLeftv2 from "./ArrowLeftv2"
 import Avatar from "./Avatar"
 import Ring from "./Ring"
 import Cart from './Cart'
+import Bill from "./Bill"
 
 /**
  *
@@ -78,6 +79,8 @@ function VIcon({
   }
 
   switch (name) {
+    case "bill":
+      return <Bill {...props} style={style} color={_color} />
     case "ring":
       return <Ring {...props} style={style} color={_color} />
     case "cart":
