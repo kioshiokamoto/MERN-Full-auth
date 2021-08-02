@@ -48,20 +48,8 @@ export default function Navbar() {
       //   </Flex>
       // </ul>
       <Flex align="center">
-        <Circle
-            w="40px"
-            h="40px"
-            backgroundColor="primary"
-            boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
-            cursor="pointer"
-            mx="3"
-            position="relative"
-            >
-            <ZIcon name="cart" color="icon" />
-            <Box w="5" h="5" backgroundColor="red" borderRadius="full" d="flex" alignItems="center" justifyContent="center" position="absolute" top="-1" right="-1">
-              <Text fontSize="xs" color="white">1</Text>
-            </Box>
-        </Circle>
+        <DrawerCart icon="cart"/>
+        
         <Text>Camila Rosales</Text>
         <Popover placement="bottom-end">
           <PopoverTrigger>
@@ -139,12 +127,12 @@ export default function Navbar() {
             </Link>
           </li> */}
         </ul>
-        <DrawerCart/>
+   
         {authReady ? (
           <>
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
-            {Object.keys(auth).length === 0 ? (
+            {Object.keys(auth).length !== 0 ? (
               <ul>
                 <Flex align="center" justify="center" mx="1">
                   <Login

@@ -9,20 +9,38 @@ import {
     useDisclosure,
     Button,
     Text,
-    Flex
+    Flex,
+    Circle,
+    Box
   } from "@chakra-ui/react"
 import {useRef} from 'react'
 import ZIcon from './Icon'
 import ItemCart from "./ItemCart"
-export default function DrawerCart() {
+export default function DrawerCart({icon}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
   
     return (
       <>
-        <Button colorScheme="blue" onClick={onOpen} ref={btnRef}>
+        {/* <Button colorScheme="blue" onClick={onOpen} ref={btnRef}>
           Open
-        </Button>
+        </Button> */}
+        <Circle
+            ref={btnRef}
+            onClick={onOpen}
+            w="40px"
+            h="40px"
+            backgroundColor="primary"
+            boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
+            cursor="pointer"
+            mx="3"
+            position="relative"
+            >
+            <ZIcon name={icon} color="icon" />
+            <Box w="5" h="5" backgroundColor="red" borderRadius="full" d="flex" alignItems="center" justifyContent="center" position="absolute" top="-1" right="-1">
+              <Text fontSize="xs" color="white">6</Text>
+            </Box>
+        </Circle> 
         <Drawer isOpen={isOpen}
         placement="right"
         onClose={onClose}
