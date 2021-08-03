@@ -102,7 +102,7 @@ export default function CardProduct({role}) {
                                 onClick={handleClick}
                                 
                                 >
-                                <ZIcon name="cart" color="icon" />
+                                <ZIcon name="cart" color="icon" size={20}/>
                             </Circle>
                         )
                         :
