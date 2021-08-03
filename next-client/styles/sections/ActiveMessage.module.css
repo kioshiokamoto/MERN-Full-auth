@@ -1,0 +1,14 @@
+.infoContainer{
+  color:#304659;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.infoWrapper{
+    width: 100%;
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 10px;
+}
