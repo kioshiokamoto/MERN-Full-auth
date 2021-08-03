@@ -5,6 +5,13 @@ const uploadImage = require("../middlewares/uploadImage");
 const auth = require("../middlewares/auth");
 
 router.post("/upload_avatar", uploadImage, auth, uploadController.uploadAvatar);
+
+router.post(
+  "/upload_post_image",
+  uploadImage,
+  auth,
+  uploadController.uploadPostImage
+);
 router.get("/", (req, res) => {
   res.send(`Working!... on PORT: ${process.env.PORT}`);
 });
