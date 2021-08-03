@@ -24,6 +24,7 @@ import { get } from "../utils/http"
 import DrawerCart from "./DrawerCart"
 
 export default function Navbar() {
+  const role = "admin"
   const router = useRouter()
   const activeRoute = router?.pathname.split("/")[1]
   const { state, dispatch } = useContext(DataContext)
@@ -48,9 +49,16 @@ export default function Navbar() {
       //   </Flex>
       // </ul>
       <Flex align="center">
-        <DrawerCart icon="cart"/>
-        
-        <Text>Camila Rosales</Text>
+        {
+          role !== "admin" ?  (
+          <>
+            <DrawerCart icon="cart"/>
+            <Text>Camila Rosales</Text>
+          </>
+          ) :(
+            <Text>Mi admin</Text>
+          )
+        }
         <Popover placement="bottom-end">
           <PopoverTrigger>
             <Box px="4">
@@ -102,18 +110,19 @@ export default function Navbar() {
             authReady ? (
               <>
               {
-                Object.keys(auth).length === 0 ? (
+                (Object.keys(auth).length !== 0 || role!=="admin") ? (
                   null
                 ) : (
                   <li
                   className={`${activeRoute === "mis-compras" && styles.active}`}
                   id="explorar"
-                >
-                  <Link href="/mis-compras">
-                    <a>Mis compras</a>
-                  </Link>
-                </li>
-              )              }
+                  >
+                    
+                        <Link href="/mis-compras">
+                          <a>Mis compras</a>
+                        </Link>
+                  </li>)
+                }
               </>
             ) : null
           }
@@ -130,9 +139,8 @@ export default function Navbar() {
    
         {authReady ? (
           <>
-            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
-            {Object.keys(auth).length !== 0 ? (
+            {Object.keys(auth).length === 0 ? (
               <ul>
                 <Flex align="center" justify="center" mx="1">
                   <Login

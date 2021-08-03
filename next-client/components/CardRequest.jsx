@@ -44,7 +44,7 @@ export default function CardRequest() {
             mx="2"
             my="3"
           >
-            <ZIcon name="check-cirle" color="icon" size={40} />
+            <ZIcon name="check" color="icon" size={20} />
           </Circle>
           <Circle
             w="45px"
@@ -52,9 +52,12 @@ export default function CardRequest() {
             backgroundColor="primary"
             boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
             cursor="pointer"
+            d="flex"
+            justifyContent="center"
+            alignItems="center"
             my="3"
           >
-            <ZIcon name="instagram" color="icon" size={20} />
+            <ZIcon name="wp" color="icon" size={25} />
           </Circle>
         </Flex>
       </Box>

@@ -13,6 +13,7 @@ import Dialog from "./Dialog"
 import ProductModal from './../sections/Home/ProductModal'
 export default function CardProduct({role}) {
     const [openDialog, setOpenDialog] = useState(false)
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
 
 
     const handleClick = () => {
@@ -28,7 +29,16 @@ export default function CardProduct({role}) {
     }
 
     const handleDelete =()=> {
+        console.log('click')
+        setOpenDeleteDialog(true)
+    }
 
+    const handleDeleteProduct = (result) => {
+        if(result=== true){
+            console.log('eliminado')
+        }else if(result===false){
+            setOpenDeleteDialog(false)
+        }
     }
     return (
         <Box borderRadius="3xl" overflow="hidden" mx="3" backgroundColor="white" my="4"boxShadow="lg">
@@ -121,6 +131,12 @@ export default function CardProduct({role}) {
                 openDialog &&  (
                     <Dialog title="Agregar producto" icon="cart" content={<>¿Está seguro que desea agregar al carrito el
                         producto <b>Chompa negra mujer?</b></>} accept="Sí, agregar" callbackFunction={handleAddCart}/>
+                )
+            }
+
+            {
+                openDeleteDialog && (
+                    <Dialog title="Eliminar producto" icon="trash" color="danger" content={<>¿Está seguro que desea eliminar el producto <b>Chompa negra mujer?</b></>} accept="Sí, eliminar" callbackFunction={handleDeleteProduct}/>
                 )
             }
         </Box>

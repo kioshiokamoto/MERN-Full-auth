@@ -5,8 +5,8 @@ import {
 
 import { Swiper, SwiperSlide } from "swiper/react"
 import SwiperCore, { Autoplay, Navigation } from "swiper/core"
-import CardRequest from "../../components/CardRequest"
 SwiperCore.use([Autoplay, Navigation])
+import CardRequest from "../../components/CardRequest"
 export default function Requests() {
     return (
         <Box bg="primary">

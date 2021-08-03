@@ -14,7 +14,7 @@ import MangnamentProduct from "../sections/Home/MangnamentProduct"
 SwiperCore.use([Autoplay, Navigation])
 
 export default function Home() {
-  const role = "admin"
+  const role = "user"
   return (
     <div>
       <Head>

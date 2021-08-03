@@ -58,6 +58,8 @@ import Avatar from "./Avatar"
 import Ring from "./Ring"
 import Cart from './Cart'
 import Bill from "./Bill"
+import Check from "./Check"
+import Whatsapp from "./Whatsapp"
 
 /**
  *
@@ -79,6 +81,10 @@ function VIcon({
   }
 
   switch (name) {
+    case "wp":
+      return <Whatsapp {...props} style={style} color={_color} />
+    case "check":
+      return <Check {...props} style={style} color={_color} />
     case "bill":
       return <Bill {...props} style={style} color={_color} />
     case "ring":
