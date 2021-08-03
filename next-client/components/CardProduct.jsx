@@ -26,9 +26,13 @@ export default function CardProduct({role}) {
             setOpenDialog(false)
         }
     }
+
+    const handleDelete =()=> {
+
+    }
     return (
         <Box borderRadius="3xl" overflow="hidden" mx="3" backgroundColor="white" my="4"boxShadow="lg">
-            <Box>
+            <Box position="relative">
                 <Link
                 href="/"
                 as={`/}`}
@@ -42,6 +46,7 @@ export default function CardProduct({role}) {
                     />
                 </a>
                 </Link>
+                <Text position="absolute" bg="primary" color="letter" top="4" left="4" py="1" px="2" borderRadius="xl">Chompas</Text>
                 <Flex
                 align="flex-start"
                 justify="center"
@@ -63,7 +68,7 @@ export default function CardProduct({role}) {
                     <Text fontSize="sm" fontWeight="medium" color="letterSecondary">
                         Marca: NAHARA
                     </Text>
-                
+                    
                 </Flex>
             </Box>
           
@@ -100,6 +105,7 @@ export default function CardProduct({role}) {
                                 boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
                                 cursor="pointer"
                                 mx="2"
+                                onClick={handleDelete}
                                 
                                 >
                                     <ZIcon name="trash" color="icon" size={20}/>
