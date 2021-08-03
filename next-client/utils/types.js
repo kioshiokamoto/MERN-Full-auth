@@ -17,7 +17,7 @@ export const errorForm = {
     INVALID_EMAIL: "Correo electronico inválido",
     INVALID_TEXT_AREA: "Contenido inválido",
     INVALID_PRICE: "Precio inválido",
-    INVALID_FILE: "Debe seleccionar 5 archivos",
+    INVALID_FILE: "Debe seleccionar 1 archivo",
     INVALID_ISSUE: "Ingrese un asunto válido",
     INVALID_BUDGET: "Ingrese un presupuesto válido",
     SHORT_PASSWORD: "La contraseña debe ser de 7 carateres o más",

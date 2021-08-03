@@ -1,4 +1,4 @@
-import { regexEmail, regexOnlyString } from "../../../utils/regex"
+import { regexDecimal, regexEmail, regexOnlyString } from "../../../utils/regex"
 import { errorForm } from "../../../utils/types"
 export const validRegister = values => {
   const errors = {
@@ -114,6 +114,57 @@ export const validSeller = values => {
     isValid = false
   } else if (values.message.trim().length < 10) {
     errors.message = "Debe tener como minimo 10 caracteres"
+    isValid = false
+  }
+  return { errors, isValid }
+}
+
+export const validProduct =  (values, category, imagesFile)=> {
+  const errors = {
+    name: "",
+    brand: "",
+    price: "",
+    category: "",
+    imagesFile: ""
+  }
+
+  let isValid = true
+
+  if (!values.name.trim()) {
+    errors.name = errorForm.EMPTY_NAME
+
+    isValid = false
+  } else if (!regexOnlyString(values.name.trim())) {
+    errors.name = errorForm.INVALID_NAME
+    isValid = false
+  } else if (values.name.trim().length < 10) {
+    errors.name = "Debe tener como minimo 10 caracteres"
+    isValid = false
+  }
+
+  if (!values.brand.trim()) {
+    errors.brand = "Marca es requerida"
+    isValid = false
+  } else if (values.brand.trim().length < 10) {
+    errors.brand = "Debe tener como minimo 10 caracteres"
+    isValid = false
+  }
+
+  if (!values.price) {
+    errors.price = errorForm.EMPTY_PRICE
+    isValid = false
+  } else if (!regexDecimal(values.price)) {
+    errors.price = errorForm.INVALID_PRICE
+    isValid = false
+  }
+
+  if (!category) {
+    errors.category = errorForm.EMPTY_CATEGORY
+    isValid = false
+  }
+
+  if (imagesFile.length !== 1) {
+    errors.imagesFile = errorForm.INVALID_FILE
     isValid = false
   }
   return { errors, isValid }

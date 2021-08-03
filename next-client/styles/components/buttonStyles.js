@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { darken } from "@chakra-ui/theme-tools"
+import { darken, lighten } from "@chakra-ui/theme-tools"
 export const ButtonStyles = {
   // style object for base or default style
   baseStyle: {},
@@ -21,10 +21,12 @@ export const ButtonStyles = {
       }
     },
     secondary: {
-      bg: darken("secondary", 20),
-      color: "#fff",
+      bg:lighten("letter",50),
+      color: "gray.800",
+      boxShadow: "2px 2px 2px 1px rgba(0, 0, 0, 0.2)",
       _hover: {
-        bg: darken("secondary", 50)
+        bg: lighten("letter",10),
+        color:"whiteAlpha.800"
       },
       _active: {
         transform: "scale(0.9)"

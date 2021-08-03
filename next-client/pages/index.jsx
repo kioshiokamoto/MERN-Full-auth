@@ -9,6 +9,7 @@ import Hero from "../sections/Home/Hero"
 import Layout from "../components/Layout"
 import Products from "../sections/Home/Products"
 import Requests from "../sections/Home/Requests"
+import MangnamentProduct from "../sections/Home/MangnamentProduct"
 
 SwiperCore.use([Autoplay, Navigation])
 
@@ -25,7 +26,10 @@ export default function Home() {
         {
           role === "admin" ?
           (
-            <Requests/>
+            <>
+              <Requests/>
+              <MangnamentProduct/>
+            </>
           )
           :(
             <>

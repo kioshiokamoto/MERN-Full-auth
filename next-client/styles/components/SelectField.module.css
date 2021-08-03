@@ -1,0 +1,218 @@
+.fullWidth{
+    width: 100%;
+  }
+  
+  .light{
+    --color-component: var(--white);
+    --color-icon: var(--white);
+    --color-placeholder: var(--white);
+  }
+  
+  .dark{
+    --color-component: var(--primary);
+    --color-placeholder: #b4b9c2;
+    --color-icon:  #b4b9c2;
+    background:var(--white);
+  }
+  
+  .selectFieldContainer{
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+  
+  .search{
+    --color-component: var(--primary);
+    --color-placeholder: #b4b9c2;
+    --color-icon:  #b4b9c2;
+    height:30px;
+    border-radius:5px;
+    cursor: text;
+  }
+  
+  .img{
+    padding-left: 30px;
+  }
+  
+  .forReadOnly{
+    background-color: gray;
+    opacity: 1 !important;
+    cursor:auto;
+  }
+  
+  .error{
+    border: 1px solid red;
+  }
+  
+  .required{
+    border-left: 3px solid red;
+  }
+  
+  .inputField{
+    user-select:none;
+    position:relative;
+    height: 40px;
+    cursor: pointer;
+    border: 1px solid #d0d4db;
+    font-size: 15px;
+    outline: none;
+    transition: all .2s ease-out;
+    transition: 0ms padding;
+    padding: 0 30px 0 15px;
+    position: relative;
+    background-color: transparent;
+    border-radius: 8px;
+    z-index: 2;
+    color:var(--color-component);
+    text-overflow:ellipsis;
+  }
+  
+  .inputField::placeholder{
+    color:var(--color-placeholder);
+  }
+  
+  .inputField:focus{
+    border:2px solid rgb(79, 153, 214);
+  }
+  
+  .inputField:disabled{
+    cursor:auto;
+    opacity: .6;
+  }
+  .disabled{
+    display:none;
+  }
+  
+  .iconDown {
+    position: absolute;
+    right: .8em;
+    top: 12px;
+    width: 15px;
+    z-index: 1;
+  }
+  
+  .result {
+    position: absolute;
+    max-height: 200px;
+    background-color: var(--white);
+    width: 100%;
+    top: 40px;
+    transition: .1s ease-out;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    z-index: 5;
+    color: var(--primary);
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    z-index:8;
+  }
+  .show {
+    height: auto;
+    opacity: 1;
+    top: 40px;
+    visibility: visible;
+  }
+  
+  .searchFluid {
+    max-height: 158px;
+  }
+  
+  .optionsFluid {
+    max-height: 200px;
+    color: black;
+    overflow: auto;
+  }
+  
+  .multiple{
+    padding: 1em 1.5em;
+  }
+  
+  .readOnly{
+    pointer-events: none;
+  }
+  
+  .optionContainer{
+    padding: .8em 1.5em;
+    font-size: 15px;
+    transition: .3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .optionContainer:hover{
+    background-color: var(--primary);
+    color: var(--white);
+  }
+  
+  .captionContainer{
+    padding: .8em 1.5em;
+    font-size: 15px;
+    transition: .3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--primary);
+    color: var(--white);
+  }
+  
+  .searchContainer{
+    padding: .5em;
+    font-size: 15px;
+    transition: .3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  
+  /* .searchContainer:hover{
+    background-color: var(--primary);
+  } */
+  
+  .iconsearch{
+    position: absolute;
+    right: 1em;
+    top: 15px;
+    z-index: 1;
+    font-size: 12px;
+  }
+  
+  .image{
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+    border-radius:5px;
+    object-fit: cover;
+  }
+  
+  .circled{
+    border-radius:5px;
+    width: 17px;
+  }
+  
+  .imageHeader{
+    height: 17px;
+    margin-right: 5px;
+    top:11px;
+    left:9px;
+    object-fit: cover;
+    position:absolute;
+    z-index: 3;
+    max-width: 20px;
+  }
+  
+  .loadingContainer{
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    z-index: 1;
+    color: gray;
+  }
+  
+  .errorHelper{
+    border: 2px solid red !important;
+  }
