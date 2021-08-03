@@ -19,7 +19,8 @@ import {
   Textarea,
   Box,
   NumberInput,
-  NumberInputField
+  NumberInputField,
+  Circle
 } from "@chakra-ui/react"
 
 import { useForm } from "../../utils/hooks/useForm"
@@ -228,18 +229,31 @@ export default function ProductModal({
 
   return (
     <>
-      <Button
+    {
+      icon ? 
+      <Circle
+      w="45px"
+      h="45px"
+      backgroundColor="primary"
+      boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
+      cursor="pointer"
+      onClick={onOpen}  
+      >
+        <ZIcon name="pencil" color="icon" size={20} />
+      </Circle>
+      : (
+        <Button
         variant={variant}
         width={width}
         backgroundColor={backgroundColor}
         onClick={onOpen}
-      >
-        {icon ? (
-          <ZIcon name="pencil" color="primary" size={20} />
-        ) : (
+        >
           <Text>{showModalButtonText}</Text>
-        )}
-      </Button>
+        </Button>
+      )
+      
+    }
+
 
       <Modal isOpen={isOpen} onClose={onClose} size="2xl" isCentered>
         <ModalOverlay />

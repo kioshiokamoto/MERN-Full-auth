@@ -10,6 +10,7 @@ import Image from "next/image"
 import ZIcon from './Icon'
 import { useState } from "react"
 import Dialog from "./Dialog"
+import ProductModal from './../sections/Home/ProductModal'
 export default function CardProduct({role}) {
     const [openDialog, setOpenDialog] = useState(false)
 
@@ -77,30 +78,34 @@ export default function CardProduct({role}) {
                     {
                         role !== "admin" ?
                         (
-                        <Circle
-                            w="45px"
-                            h="45px"
-                            backgroundColor="primary"
-                            boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
-                            cursor="pointer"
-                            onClick={handleClick}
-                            
-                            >
-                            <ZIcon name="cart" color="icon" />
-                        </Circle>
+                            <Circle
+                                w="45px"
+                                h="45px"
+                                backgroundColor="primary"
+                                boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
+                                cursor="pointer"
+                                onClick={handleClick}
+                                
+                                >
+                                <ZIcon name="cart" color="icon" />
+                            </Circle>
                         )
                         :
                         (
-                            <Circle
-                            w="45px"
-                            h="45px"
-                            backgroundColor="gray.200"
-                            boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
-                            cursor="pointer"
-                            
-                            >
-                                <ZIcon name="trash" color="icon" size={20}/>
-                            </Circle>
+                            <Box d="flex">
+                                <Circle
+                                w="45px"
+                                h="45px"
+                                backgroundColor="gray.200"
+                                boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
+                                cursor="pointer"
+                                mx="2"
+                                
+                                >
+                                    <ZIcon name="trash" color="icon" size={20}/>
+                                </Circle>
+                                <ProductModal icon/>
+                            </Box>
                         )
                     }
                     
