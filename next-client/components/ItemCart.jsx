@@ -1,6 +1,10 @@
 import { Flex, useNumberInput, HStack,Box,Text,Button,Input } from "@chakra-ui/react"
 import Image from 'next/image'
-export default function ItemCart() {
+import { useContext } from "react"
+import { DataContext } from "../store/GlobalState"
+import ZIcon from './Icon'
+export default function ItemCart({productCart}) {
+    const { dispatch } = useContext(DataContext)
 
     const {
         value,
@@ -9,7 +13,7 @@ export default function ItemCart() {
         getDecrementButtonProps,
       } = useNumberInput({
         step: 1,
-        defaultValue: 1,
+        defaultValue: productCart.cantidad,
         min: 1,
         max: 100,
       })
@@ -23,22 +27,29 @@ export default function ItemCart() {
     }
     const handleDecrement= () =>{ 
         console.log('value: ', value)
+
+    }
+
+    const handleDeleteItem = () =>{
+        console.log('quitando del carro')
+        dispatch({type:'DELETE_CART', payload: productCart.id})
     }
 
 
     return (
         <Flex border="solid 1px #cccccc" borderRadius="xl" p="5" my="2" align="center" justify="space-between">
-            <Image src="/slide1.png" alt="Picture" height="80" width="80" />
+            <Image src={productCart.imagen} alt="Picture" height="80" width="80" />
             <Box>
-                <Text fontSize="sm" color="letter">Chompa negra mujer</Text>
-                <Text fontSize="sm" color="letter">Marca: AHINA</Text>
-                <Text fontSize="lg" color="primary">S/. 70.00</Text>
+                <Text fontSize="sm" color="letter">{productCart.nombre}</Text>
+                <Text fontSize="sm" color="letter">Marca: {productCart.marca}</Text>
+                <Text fontSize="lg" color="primary">S/. {productCart.precio}</Text>
             </Box>
             <HStack w="150px">
                 <Button {...inc} size="sm" onClick={handleIncrement}>+</Button>
                 <Input {...input} textAlign="center"/>
                 <Button {...dec} size="sm" onClick={handleDecrement}>-</Button> 
             </HStack>
+            <ZIcon name="trash" pointer color="primary" onClick={handleDeleteItem}/>
         </Flex>
     )
 }

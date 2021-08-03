@@ -18,16 +18,6 @@ const reducers = (state, action) => {
         ...state,
         authType: action.payload
       }
-    case ACTIONS.USER:
-      return {
-        ...state,
-        user: action.payload
-      }
-    case ACTIONS.GET_CATEGORIES:
-      return {
-        ...state,
-        categories: [...action.payload]
-      }
     case ACTIONS.GET_PRODUCTS:
       return {
         ...state,
@@ -56,28 +46,15 @@ const reducers = (state, action) => {
           }
         })
       }
-    case ACTIONS.UPDATE_NAME:
-      return {
+    case ACTIONS.ADD_CART:
+      return{
         ...state,
-        auth: {
-          ...state.auth,
-          user: {
-            ...state.auth.user,
-            us_nombre: action.payload.name,
-            us_apellido: action.payload.lastname
-          }
-        }
+        cart:[ action.payload,...state.cart]
       }
-    case ACTIONS.UPDATE_IMAGE:
-      return {
+    case ACTIONS.DELETE_CART:
+      return{
         ...state,
-        auth: {
-          ...state.auth,
-          user: {
-            ...state.auth.user,
-            avatar: action.payload
-          }
-        }
+        cart: state.cart.filter( item => item.id !== action.payload)
       }
     default:
       return state

@@ -63,7 +63,7 @@ export const DataProvider = ({ children }) => {
                 us_nombre: "Sebastian",
                 us_apellido: "Asis Romero",
                 avatar: "",
-                role:"admin"
+                role:"user"
                 // posts: user.data.posts
               }
             }

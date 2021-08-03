@@ -7,10 +7,9 @@ export default function showToast(title, message, type) {
     title: `${title}`,
     description: `${message}`,
     position: "top",
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     status: `${type}`,
-    duration: 9000,
+    duration: 1500,
     isClosable: true
   })
 }

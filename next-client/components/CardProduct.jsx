@@ -8,12 +8,16 @@ import {toCapitalFirstLetter} from '../utils/toCapital'
 import Link from "next/link"
 import Image from "next/image"
 import ZIcon from './Icon'
-import { useState } from "react"
+import { useContext, useState } from "react"
 import Dialog from "./Dialog"
 import ProductModal from './../sections/Home/ProductModal'
+import { DataContext } from "../store/GlobalState"
+import showToast from "./Toast"
 export default function CardProduct({ product, role }) {
     const [openDialog, setOpenDialog] = useState(false)
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
+    const { state, dispatch } = useContext(DataContext)
+    const { cart } = state
 
 
     const handleClick = () => {
@@ -23,6 +27,17 @@ export default function CardProduct({ product, role }) {
     const handleAddCart = (result)=>{
         if(result=== true){
             console.log('agregado')
+            const check = cart.every(item => {
+                return item.id !== product.id
+            })
+            console.log('mostro el toast')
+            if(!check) {
+                setOpenDialog(false)
+                return (showToast("Cuidado","Elemento ya se encuentra en el carrrito","info")) 
+            }
+            dispatch({ type: 'ADD_CART', payload: {...product, cantidad:1}})
+            setOpenDialog(false)
+            showToast("Operacion exitosa","Elemento ha sido agregado al carrito","success")
         }else if(result===false){
             setOpenDialog(false)
         }
