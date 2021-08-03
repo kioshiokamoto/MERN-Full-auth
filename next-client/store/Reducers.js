@@ -46,6 +46,11 @@ const reducers = (state, action) => {
           }
         })
       }
+    case ACTIONS.ADD_ALL_CART:
+      return{
+        ...state,
+        cart:[ ...action.payload]
+      }
     case ACTIONS.ADD_CART:
       return{
         ...state,
@@ -55,6 +60,28 @@ const reducers = (state, action) => {
       return{
         ...state,
         cart: state.cart.filter( item => item.id !== action.payload)
+      }
+    case ACTIONS.INCREASE_NUMBER_PRODUCT:
+      return{
+        ...state,
+        cart: state.cart.map( item => {
+            if(item.id === action.payload.id){
+                item.cantidad +=1
+            }
+            return item
+          }
+        )
+      }
+    case ACTIONS.DECREASE_NUMBER_PRODUCT:
+      return{
+        ...state,
+        cart: state.cart.map( item => {
+            if(item.id === action.payload.id){
+                item.cantidad -=1
+            }
+            return item
+          }
+        )
       }
     default:
       return state

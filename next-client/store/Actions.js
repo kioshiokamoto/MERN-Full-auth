@@ -8,17 +8,9 @@ export const ACTIONS = {
     EDIT_POST: "EDIT_POST",
     DELETE_POST: "DELETE_POST",
     ADD_CART:"ADD_CART",
-    DELETE_CART:"DELETE_CART"
+    DELETE_CART:"DELETE_CART",
+    INCREASE_NUMBER_PRODUCT:"INCREASE_NUMBER_PRODUCT",
+    DECREASE_NUMBER_PRODUCT:"DECREASE_NUMBER_PRODUCT",
+    ADD_ALL_CART: "ADD_ALL_CART",
 }
 
-// export const addToCart = (product, cart) => {
-//     // Determina si todos los elementos en el array satisfacen una condición
-//     const check = cart.every(item => {
-//         return item.id !== product.id
-//     })
-//     console.log('mostro el toast')
-//     if(!check) return (showToast("Cuidado","Elemento ya ha sido agregado","info")) 
-//     console.log('siguio')
-
-//     return ({ type: 'ADD_CART', payload: {...product, cantidad:1}}) 
-// }

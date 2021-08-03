@@ -16,7 +16,7 @@ import {
     InputGroup,
     InputLeftAddon
   } from "@chakra-ui/react"
-import {useContext, useRef, useState} from 'react'
+import {useContext, useEffect, useRef, useState} from 'react'
 import { DataContext } from "../store/GlobalState"
 import BuyModal from "./BuyModal"
 import ZIcon from './Icon'
@@ -24,6 +24,7 @@ import ItemCart from "./ItemCart"
 export default function DrawerCart({icon}) {
 
   const [openBuyModal, setOpenBuyModal] = useState(false)
+  const [total, setTotal] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
   const { state } = useContext(DataContext)
@@ -40,6 +41,17 @@ export default function DrawerCart({icon}) {
     }
   }
 
+  useEffect(() => {
+    const getTotal = () => {
+      const res = cart.reduce((prev, item) => {
+        return prev + item.precio * item.cantidad;
+      }, 0);
+
+      setTotal(res);
+    };
+
+    getTotal();
+  }, [cart]);
     return (
       <>
         {/* <Button colorScheme="blue" onClick={onOpen} ref={btnRef}>
@@ -81,7 +93,7 @@ export default function DrawerCart({icon}) {
                       <ItemCart key={productCart.id} productCart={productCart}/>
                   ))
               }
-              <Text textAlign="end" color="letter" py="4">Monto total a pagar: S/. 300</Text>
+              <Text textAlign="end" color="letter" py="4">Monto total a pagar: S/. {total}</Text>
             </DrawerBody>
             <DrawerFooter>
                 <Button type="submit" form="my-form" variant="primary" color="letter" isFullWidth onClick={handleBuy}>

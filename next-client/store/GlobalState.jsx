@@ -19,7 +19,7 @@ export const DataProvider = ({ children }) => {
     requests:[]
   }
   const [state, dispatch] = useReducer(reducers, initialState)
-  const { authType } = state
+  const { authType, cart } = state
   const toast = useToast()
   const showToast = errMessage => {
     toast({
@@ -173,6 +173,15 @@ export const DataProvider = ({ children }) => {
     //   })
     //   .catch(() => showToast("Error al recuperar categorias"))
   }, [authType])
+  useEffect(() => {
+    const __next__cart__ = JSON.parse(localStorage.getItem('__next__cart__'))
+
+    if(__next__cart__) dispatch({ type: 'ADD_ALL_CART', payload: __next__cart__ })
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('__next__cart__', JSON.stringify(cart))
+  }, [cart])
 
   return (
     <>

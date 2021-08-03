@@ -1,11 +1,11 @@
 import { Flex, useNumberInput, HStack,Box,Text,Button,Input } from "@chakra-ui/react"
 import Image from 'next/image'
-import { useContext } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { DataContext } from "../store/GlobalState"
 import ZIcon from './Icon'
 export default function ItemCart({productCart}) {
     const { dispatch } = useContext(DataContext)
-
+    const isMount = useRef(true)
     const {
         value,
         getInputProps,
@@ -24,17 +24,16 @@ export default function ItemCart({productCart}) {
 
     const handleIncrement = () =>{ 
         console.log('value: ', value)
+        dispatch({type:'INCREASE_NUMBER_PRODUCT', payload: productCart})
+
     }
     const handleDecrement= () =>{ 
-        console.log('value: ', value)
-
+        dispatch({type:'DECREASE_NUMBER_PRODUCT', payload: productCart})
     }
 
     const handleDeleteItem = () =>{
-        console.log('quitando del carro')
         dispatch({type:'DELETE_CART', payload: productCart.id})
     }
-
 
     return (
         <Flex border="solid 1px #cccccc" borderRadius="xl" p="5" my="2" align="center" justify="space-between">
@@ -46,7 +45,7 @@ export default function ItemCart({productCart}) {
             </Box>
             <HStack w="150px">
                 <Button {...inc} size="sm" onClick={handleIncrement}>+</Button>
-                <Input {...input} textAlign="center"/>
+                <Input {...input} textAlign="center" />
                 <Button {...dec} size="sm" onClick={handleDecrement}>-</Button> 
             </HStack>
             <ZIcon name="trash" pointer color="primary" onClick={handleDeleteItem}/>
