@@ -1,6 +1,6 @@
 import Head from "next/head"
 import SwiperCore, { Autoplay, Navigation } from "swiper/core"
-import React from "react"
+import React, { useContext } from "react"
 import Hero from "../sections/Home/Hero"
 // import OurCategories from "../sections/Home/OurCategories"
 // import Reason from "../sections/Home/Reason"
@@ -10,11 +10,13 @@ import Layout from "../components/Layout"
 import Products from "../sections/Home/Products"
 import Requests from "../sections/Home/Requests"
 import MangnamentProduct from "../sections/Home/MangnamentProduct"
+import { DataContext } from "../store/GlobalState"
 
 SwiperCore.use([Autoplay, Navigation])
 
 export default function Home() {
-  const role = "user"
+  const { state } = useContext(DataContext)
+  const { auth, authReady } = state
   return (
     <div>
       <Head>
@@ -24,21 +26,26 @@ export default function Home() {
       </Head>
       <Layout withNav >
         {
-          role === "admin" ?
-          (
+          authReady ? (
             <>
-              <Requests/>
-              <MangnamentProduct/>
+              {
+                auth.user?.role === "admin" ?
+                (
+                  <>
+                    <Requests/>
+                    <MangnamentProduct/>
+                  </>
+                )
+                :(
+                  <>
+                    <Hero/>
+                    <Products/>
+                  </>
+                )
+              }
             </>
-          )
-          :(
-            <>
-              <Hero/>
-              <Products/>
-            </>
-          )
+          ):null
         }
-       
       </Layout>
     </div>
   )

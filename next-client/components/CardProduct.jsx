@@ -11,7 +11,7 @@ import ZIcon from './Icon'
 import { useState } from "react"
 import Dialog from "./Dialog"
 import ProductModal from './../sections/Home/ProductModal'
-export default function CardProduct({role}) {
+export default function CardProduct({ product, role }) {
     const [openDialog, setOpenDialog] = useState(false)
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
 
@@ -45,18 +45,18 @@ export default function CardProduct({role}) {
             <Box position="relative">
                 <Link
                 href="/"
-                as={`/}`}
+                as={`/`}
                 >
                 <a>
                     <Image
-                    src= "/slide1.png"
+                    src= {product?.imagen || '/slide1.png'}
                     alt='imagen'
                     height="500"
                     width="500"
                     />
                 </a>
                 </Link>
-                <Text position="absolute" bg="primary" color="letter" top="4" left="4" py="1" px="2" borderRadius="xl">Chompas</Text>
+                <Text position="absolute" bg="primary" color="letter" top="4" left="4" py="1" px="2" borderRadius="xl">{product?.categoria}</Text>
                 <Flex
                 align="flex-start"
                 justify="center"
@@ -73,10 +73,10 @@ export default function CardProduct({role}) {
                     </Flex>
                  */}
                     <Text fontSize="sm" fontWeight="medium" color="letterSecondary">
-                    Chompa negra mujer
+                    {product?.nombre}
                     </Text>
                     <Text fontSize="sm" fontWeight="medium" color="letterSecondary">
-                        Marca: NAHARA
+                        Marca: {product?.marca}
                     </Text>
                     
                 </Flex>
@@ -86,9 +86,9 @@ export default function CardProduct({role}) {
                 <Flex align="center" justify="space-between">
                     <Flex align="flex-start" justify="flex-start" direction="column">
                         <Text fontSize="xs" fontWeight="normal" color="letter" textDecoration="line-through">
-                        S/. 120.00
+                        {product?.precio + 30}
                         </Text>
-                        <Text fontSize="lg">S/. 70.00</Text>
+                        <Text fontSize="lg">S/. {product?.precio}</Text>
                     </Flex> 
                     {
                         role !== "admin" ?
@@ -130,13 +130,13 @@ export default function CardProduct({role}) {
             {
                 openDialog &&  (
                     <Dialog title="Agregar producto" icon="cart" content={<>¿Está seguro que desea agregar al carrito el
-                        producto <b>Chompa negra mujer?</b></>} accept="Sí, agregar" callbackFunction={handleAddCart}/>
+                        producto <b>{product?.nombre}?</b></>} accept="Sí, agregar" callbackFunction={handleAddCart}/>
                 )
             }
 
             {
                 openDeleteDialog && (
-                    <Dialog title="Eliminar producto" icon="trash" color="danger" content={<>¿Está seguro que desea eliminar el producto <b>Chompa negra mujer?</b></>} accept="Sí, eliminar" callbackFunction={handleDeleteProduct}/>
+                    <Dialog title="Eliminar producto" icon="trash" color="danger" content={<>¿Está seguro que desea eliminar el producto <b>{product?.nombre}?</b></>} accept="Sí, eliminar" callbackFunction={handleDeleteProduct}/>
                 )
             }
         </Box>

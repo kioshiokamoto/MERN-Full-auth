@@ -9,8 +9,12 @@ import CardProduct from "../../components/CardProduct"
 import ProductModal from "./ProductModal"
 import { Swiper, SwiperSlide } from "swiper/react"
 import SwiperCore, { Autoplay, Navigation } from "swiper/core"
+import { useContext } from "react"
+import { DataContext } from "../../store/GlobalState"
 SwiperCore.use([Autoplay, Navigation])
 export default function MangnamentProduct() {
+    const { state } = useContext(DataContext)
+    const { auth, products } = state
     return (
         <Box bg="primary">
             <Box className="generalWrapper">
@@ -44,10 +48,10 @@ export default function MangnamentProduct() {
                   className="mySwiperSlideTwo"
                 >
                     {
-                        [1,2,3,4,5,6,7].map( (product, index) => {
+                        products.map( (product, index) => {
                             return (
-                                <SwiperSlide key={index}>
-                                    <CardProduct key={index} role="admin"/>
+                                <SwiperSlide key={product.id}>
+                                    <CardProduct role={auth.user.role} product={product}/>
                                 </SwiperSlide>
                             )
                         })

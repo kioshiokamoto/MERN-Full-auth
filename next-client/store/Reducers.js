@@ -28,10 +28,10 @@ const reducers = (state, action) => {
         ...state,
         categories: [...action.payload]
       }
-    case ACTIONS.POSTS:
+    case ACTIONS.GET_PRODUCTS:
       return {
         ...state,
-        posts: [...action.payload]
+        products: [...action.payload]
       }
     case ACTIONS.ADD_POST:
       return {

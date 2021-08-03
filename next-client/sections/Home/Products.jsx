@@ -4,15 +4,19 @@ import {
     Box, 
     Grid
   } from "@chakra-ui/react"
+import { useContext } from "react";
+import { DataContext } from "../../store/GlobalState";
 export default function Products() {
+    const { state } = useContext(DataContext)
+    const { auth, products } = state
     return (
         <Box backgroundColor="primary" pb="10">
             <Box className="generalWrapper">
                 <Text color="letter" fontSize="2xl" align="center" py="6" fontWeight="medium">Nuestros productos</Text>
                 <Grid templateColumns="repeat(4,1fr)">
                     {
-                        [1,2,3,4,5,6,7,8,9].map( product => (
-                            <CardProduct/>
+                        products?.map( product => (
+                            <CardProduct key={product.id} product={product} role={auth.user.role}/>
                         ))
                     }
                 </Grid>
