@@ -40,19 +40,20 @@ export const DataProvider = ({ children }) => {
       const typeLogged = localStorage.getItem("typeLogged")
       if (isLogged) {
         try {
-          //const accessToken = await post("/api/user/refresh_token", {})
+          const accessToken = await post("/user/refresh_token", {})
           //console.log("accessToken: ", accessToken)
-          // if (accessToken.data.status) {
-          //   localStorage.removeItem("isLogged")
-          //   return showToast("Error con el token de acceso")
-          // }
-          // console.log("accessToken: ", accessToken.data.access_token)
+          console.log("accessToken: ", accessToken)
+          if (accessToken.data.msg === "Please login now") {
+             localStorage.removeItem("isLogged")
+             return showToast("Error con el token de acceso")
+          }
           // console.log("setAuth: ", accessToken.data.access_token)
-          // setAuth(accessToken.data.access_token)
-          // const user = await get("/api/user/info")
-          // if (user.data.msg === "Autenticación inválida") {
-          //   return showToast("Error al recuperar datos del usuario")
-          // }
+          setAuth(accessToken.data.access_token)
+          const user = await get("/user/info")
+          if (user.data.msg === "Invalid authentication") {
+             return showToast("Error al recuperar datos del usuario")
+          }
+          console.log('user: ',user)
           dispatch({
             type: "AUTH",
             payload: {
@@ -60,7 +61,7 @@ export const DataProvider = ({ children }) => {
               user: {
                 id: 1,
                 us_correo: "sasisromero10@gmail.com",
-                us_nombre: "Sebastian",
+                us_nombre: "Sebastiana",
                 us_apellido: "Asis Romero",
                 avatar: "",
                 role:"user"
@@ -85,75 +86,7 @@ export const DataProvider = ({ children }) => {
           //   }
           // })
 
-          dispatch({
-            type: "GET_PRODUCTS",
-            payload: [
-              {
-                id:1,
-                categoria: "Chompas",
-                nombre:"Chompita negra",
-                marca:"TOYOTA",
-                precio:12,
-                imagen: "/slide1.png"
-              },
-              {
-                id:2,
-                categoria: "Calzados",
-                nombre:"Chompita negra",
-                marca:"ABOBA",
-                precio:25,
-                imagen: "/slide1.png"
-              },
-              {
-                id:3,
-                categoria: "Cueros",
-                nombre:"Chompita negra",
-                marca:"ANOHANA",
-                precio:130,
-                imagen: "/slide1.png"
-              },
-              {
-                id:4,
-                categoria: "Camisas",
-                nombre:"Chompita negra",
-                marca:"ASTRALIS",
-                precio:158,
-                imagen: "/slide1.png"
-              },
-              {
-                id:5,
-                categoria: "Chompas",
-                nombre:"Chompita negra",
-                marca:"SNK",
-                precio:102,
-                imagen: "/slide1.png"
-              },
-              {
-                id:6,
-                categoria: "Calzados",
-                nombre:"Chompita negra",
-                marca:"NVIDIA",
-                precio:25,
-                imagen: "/slide1.png"
-              },
-              {
-                id:7,
-                categoria: "Cueros",
-                nombre:"AK-47",
-                marca:"CSGO",
-                precio:230,
-                imagen: "/slide1.png"
-              },
-              {
-                id:8,
-                categoria: "Camisas",
-                nombre:"Chompita negra",
-                marca:"FORNITE",
-                precio:18,
-                imagen: "/slide1.png"
-              },
-            ]
-          })
+         
           if (typeLogged === "normal") {
             dispatch({ type: "AUTH_TYPE", payload: "normal" })
           }
@@ -162,6 +95,75 @@ export const DataProvider = ({ children }) => {
         }
       }
     }
+    dispatch({
+      type: "GET_PRODUCTS",
+      payload: [
+        {
+          id:1,
+          categoria: "Chompas",
+          nombre:"Chompita negra",
+          marca:"TOYOTA",
+          precio:12,
+          imagen: "/slide1.png"
+        },
+        {
+          id:2,
+          categoria: "Calzados",
+          nombre:"Chompita negra",
+          marca:"ABOBA",
+          precio:25,
+          imagen: "/slide1.png"
+        },
+        {
+          id:3,
+          categoria: "Cueros",
+          nombre:"Chompita negra",
+          marca:"ANOHANA",
+          precio:130,
+          imagen: "/slide1.png"
+        },
+        {
+          id:4,
+          categoria: "Camisas",
+          nombre:"Chompita negra",
+          marca:"ASTRALIS",
+          precio:158,
+          imagen: "/slide1.png"
+        },
+        {
+          id:5,
+          categoria: "Chompas",
+          nombre:"Chompita negra",
+          marca:"SNK",
+          precio:102,
+          imagen: "/slide1.png"
+        },
+        {
+          id:6,
+          categoria: "Calzados",
+          nombre:"Chompita negra",
+          marca:"NVIDIA",
+          precio:25,
+          imagen: "/slide1.png"
+        },
+        {
+          id:7,
+          categoria: "Cueros",
+          nombre:"AK-47",
+          marca:"CSGO",
+          precio:230,
+          imagen: "/slide1.png"
+        },
+        {
+          id:8,
+          categoria: "Camisas",
+          nombre:"Chompita negra",
+          marca:"FORNITE",
+          precio:18,
+          imagen: "/slide1.png"
+        },
+      ]
+    })
     logging()
     dispatch({
       type: "AUTH_READY",

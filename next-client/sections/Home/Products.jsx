@@ -16,7 +16,7 @@ export default function Products() {
                 <Grid templateColumns="repeat(4,1fr)">
                     {
                         products?.map( product => (
-                            <CardProduct key={product.id} product={product} role={auth.user.role}/>
+                            <CardProduct key={product.id} product={product} role={auth.user?.role}/>
                         ))
                     }
                 </Grid>

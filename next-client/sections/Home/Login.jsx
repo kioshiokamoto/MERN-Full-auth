@@ -54,15 +54,16 @@ import {
         }
         console.log("inicio sesion: ",body)
         setIsPosting(true)
-        // const res = await post("/api/user/login", {
-        //   us_correo: values.email,
-        //   password: values.password
-        // })
+        const res = await post("/user/login", {
+          email: values.email,
+          password: values.password
+        })
+        console.log(res.data)
         setIsPosting(false)
-        // console.log("res.data Login: ", res.data)
-        const error = true
-        if (/* res.data.status */ error) {
-          showToast("Error al iniciar sesión.", /* res.data.message */"Mensaje de error prueba", "error")
+        console.log("res.data Login: ", res)
+        // const error = false
+        if (res.data.msg==="Error" ) {
+          showToast("Error al iniciar sesión.","res.data.msg ", "error")
         } else {
           // window.location.reload()
           dispatch({ type: "AUTH_TYPE", payload: "normal" })

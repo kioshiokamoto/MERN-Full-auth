@@ -13,11 +13,11 @@ import Dialog from "./Dialog"
 import ProductModal from './../sections/Home/ProductModal'
 import { DataContext } from "../store/GlobalState"
 import showToast from "./Toast"
-export default function CardProduct({ product, role }) {
+export default function CardProduct({ product, role="user" }) {
     const [openDialog, setOpenDialog] = useState(false)
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
     const { state, dispatch } = useContext(DataContext)
-    const { cart } = state
+    const { auth, cart } = state
 
 
     const handleClick = () => {
@@ -26,6 +26,10 @@ export default function CardProduct({ product, role }) {
     }
     const handleAddCart = (result)=>{
         if(result=== true){
+            if(Object.keys(auth).length === 0){
+                setOpenDialog(false)
+                return (showToast("Problemas con el producto","Necesita iniciar sesion","error")) 
+            }
             console.log('agregado')
             const check = cart.every(item => {
                 return item.id !== product.id
