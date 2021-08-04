@@ -35,7 +35,7 @@ export default function ItemCart({productCart}) {
                 <Button {...dec} size="sm" onClick={handleDecrement}>-</Button> 
             </HStack> */}
             <Flex>
-                <Button variant="primary"color="letter"onClick={handleIncrementCustom} className="buttonDisabledPrimary">+1</Button>
+                <Button variant="primary"color="letter"onClick={handleIncrementCustom} disabled={cantidad===100} className="buttonDisabledPrimary">+1</Button>
                 <Input textAlign="center" readOnly w="14" value={cantidad} mx="1"/>
                 <Button variant="primary" color="letter" onClick={handleDecrementCustom} disabled={cantidad===1} className="buttonDisabledPrimary">-1</Button>
             </Flex>
