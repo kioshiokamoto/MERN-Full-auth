@@ -39,7 +39,6 @@ async function http(
       method,
       signal: controller.signal,
       ...(body && { body: JSON.stringify(body) }), // or object
-      credentials: "include"
     })
 
     const data = await response.json()

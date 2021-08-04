@@ -55,12 +55,12 @@ export default function Register({
     setErrors(errorsForm)
     if (isValid) {
       setIsPosting(true)
-      const resp = await post("/api/user/register", {
-        us_correo: values.email,
-        us_nombre: values?.name,
-        us_apellido: values?.lastName,
+      const resp = await post("/user/register", {
+        email: values.email,
+        name:`${values?.name} ${values?.lastName}`,
         password: values.password
       })
+      console.log(resp)
       setIsPosting(false)
 
       if (resp.data.err) {

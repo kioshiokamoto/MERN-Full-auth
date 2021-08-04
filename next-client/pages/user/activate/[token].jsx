@@ -14,7 +14,7 @@ export default function Activar() {
     }
     // eslint-disable-next-line camelcase
     const activation_token = router.query.token
-    post("/api/user/activation", {
+    post("/user/activation", {
       // eslint-disable-next-line camelcase
       activation_token
     })
