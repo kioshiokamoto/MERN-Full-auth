@@ -2,13 +2,21 @@ const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
   {
-    title: {
+    nombre: {
       type: String,
-      required: [true, "Por favor ingresa un titulo"],
+      required: [true, "Por favor ingresa un nombre"],
     },
-    description: {
+    categoria: {
       type: String,
-      required: [true, "Por favor ingresa una descripcion"],
+      required: [true, "Por favor ingresa una categoria"],
+    },
+    marca: {
+      type: String,
+      required: [true, "Por favor ingresa una marca"],
+    },
+    precio: {
+      type: Number,
+      required: [true, "Por favor ingresa un precio"],
     },
     image: {
       type: String,
