@@ -2,18 +2,22 @@ const Posts = require("../models/postModel");
 const postCtrl = {
   upload: async (req, res) => {
     try {
-      const { title, description, image } = req.body;
+      const { nombre, categoria, marca, precio, image } = req.body;
       let newPost;
       if (image) {
         newPost = new Posts({
-          title,
-          description,
+          nombre,
+          categoria,
+          marca,
+          precio,
           image,
         });
       } else {
         newPost = new Posts({
-          title,
-          description,
+          nombre,
+          categoria,
+          marca,
+          precio,
         });
       }
       await newPost.save();
@@ -43,14 +47,20 @@ const postCtrl = {
   },
   updatePost: async (req, res) => {
     try {
-      const { title, description, image } = req.body;
+      const { nombre, categoria, marca, precio, image } = req.body;
       const { id } = req.params;
       let update = {};
-      if (title) {
-        update.title = title;
+      if (nombre) {
+        update.nombre = nombre;
       }
-      if (description) {
-        update.description = description;
+      if (categoria) {
+        update.categoria = categoria;
+      }
+      if (marca) {
+        update.marca = marca;
+      }
+      if (precio) {
+        update.precio = precio;
       }
       if (image) {
         update.image = image;

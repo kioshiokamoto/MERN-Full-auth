@@ -18,6 +18,7 @@ app.use(
 //Routes
 app.use("/user", require("./routes/userRoutes"));
 app.use("/post", require("./routes/postRoutes"));
+app.use("/shopping", require("./routes/shoppingRoutes"));
 app.use("/api", require("./routes/upload"));
 
 //Connect DB
