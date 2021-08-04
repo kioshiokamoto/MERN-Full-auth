@@ -40,20 +40,20 @@ export const DataProvider = ({ children }) => {
       const typeLogged = localStorage.getItem("typeLogged")
       if (isLogged) {
         try {
-          const accessToken = await post("/user/refresh_token", {})
-          //console.log("accessToken: ", accessToken)
-          console.log("accessToken: ", accessToken)
-          if (accessToken.data.msg === "Please login now") {
-             localStorage.removeItem("isLogged")
-             return showToast("Error con el token de acceso")
-          }
-          // console.log("setAuth: ", accessToken.data.access_token)
-          setAuth(accessToken.data.access_token)
-          const user = await get("/user/info")
-          if (user.data.msg === "Invalid authentication") {
-             return showToast("Error al recuperar datos del usuario")
-          }
-          console.log('user: ',user)
+          // const accessToken = await post("/user/refresh_token", {})
+          // //console.log("accessToken: ", accessToken)
+          // console.log("accessToken: ", accessToken)
+          // if (accessToken.data.msg === "Please login now") {
+          //    localStorage.removeItem("isLogged")
+          //    return showToast("Error con el token de acceso")
+          // }
+          // // console.log("setAuth: ", accessToken.data.access_token)
+          // setAuth(accessToken.data.access_token)
+          // const user = await get("/user/info")
+          // if (user.data.msg === "Invalid authentication") {
+          //    return showToast("Error al recuperar datos del usuario")
+          // }
+          // console.log('user: ',user)
           dispatch({
             type: "AUTH",
             payload: {
@@ -64,7 +64,7 @@ export const DataProvider = ({ children }) => {
                 us_nombre: "Sebastiana",
                 us_apellido: "Asis Romero",
                 avatar: "",
-                role:"user"
+                role:"admin"
                 // posts: user.data.posts
               }
             }

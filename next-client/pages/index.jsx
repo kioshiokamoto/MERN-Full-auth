@@ -14,7 +14,7 @@ import { DataContext } from "../store/GlobalState"
 
 SwiperCore.use([Autoplay, Navigation])
 
-export default function Home() {
+export default function Home({products}) {
   const { state } = useContext(DataContext)
   const { auth, authReady } = state
   return (
@@ -34,13 +34,13 @@ export default function Home() {
                   <>
                     {/* <Requests/> */}
                     <Hero/>
-                    <MangnamentProduct/>
+                    <MangnamentProduct  products={products}/>
                   </>
                 )
                 :(
                   <>
                     <Hero/>
-                    <Products/>
+                    <Products products={products}/>
                   </>
                 )
               }
@@ -50,4 +50,14 @@ export default function Home() {
       </Layout>
     </div>
   )
+}
+
+export const getServerSideProps = async context => {
+  // const id = context.params.id
+  const res = await fetch(`${process.env.API_BASE_URL}/post/all`)
+  // @ts-ignore
+  const data = await res.json()
+  return {
+    props: { products: data.posts }
+  }
 }

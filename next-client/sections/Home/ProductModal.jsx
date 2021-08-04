@@ -51,16 +51,16 @@ export default function ProductModal({
   if (myproduct) {
     initialState = {
       values: {
-        name: mypost.pst_nombre,
-        brand: mypost.pst_marca,
-        price: mypost.pst_precioBase.toString()
+        name: myproduct.nombre,
+        brand: myproduct.marca,
+        price: myproduct.precio.toString()
       },
       category: {
-        value: mypost.pstCategoriaId.id,
-        label: mypost.pstCategoriaId.cat_nombre
+        value: myproduct.categoria.id,
+        label: myproduct.categoria.nombre
       },
       imagesFiles: [
-        mypost.pst_imagen_1,
+        myproduct.imagen,
       ]
     }
   } else {
@@ -75,7 +75,6 @@ export default function ProductModal({
     }
   }
   const { state, dispatch } = useContext(DataContext)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
 //   const { auth, categories } = state
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -106,13 +105,10 @@ export default function ProductModal({
       if (myproduct) {
         if (
           values.name === initialState.values.name &&
-          values.brief_content === initialState.values.brief_content &&
-          values.description === initialState.values.description &&
+          values.brand === initialState.values.brand &&
           values.price === initialState.values.price &&
           category.value === initialState.category.value &&
-          JSON.stringify(tags) === JSON.stringify(initialState.tags) &&
-          JSON.stringify(imagesFile) ===
-            JSON.stringify(initialState.imagesFiles)
+          JSON.stringify(imagesFile) === JSON.stringify(initialState.imagesFiles)
         ) {
           return showToast(
             "Cuidado",
@@ -135,40 +131,33 @@ export default function ProductModal({
     //   if (imgNewURL.length > 0) media = await imageUpload(imgNewURL)
     //   const imagesPost = [...imgOldUrlParse, ...media]
       // -------------------------------------------------------------
-    //   const body = {
-    //     pst_imagen_1: imagesPost[0].url,
-    //     pst_imagen_2: imagesPost[1].url,
-    //     pst_imagen_3: imagesPost[2].url,
-    //     pst_imagen_4: imagesPost[3].url,
-    //     pst_imagen_5: imagesPost[4].url,
-    //     pst_isActive: true,
-    //     pst_descripcion: values.description.toLocaleLowerCase(),
-    //     pst_descripcion_corta: values.brief_content.toLocaleLowerCase(),
-    //     pst_nombre: values.name.toLocaleLowerCase(),
-    //     pst_descripcion_incluye: tags,
-    //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //     // @ts-ignore
-    //     pst_categoria: category?.value,
-    //     pst_precioBase: Number(values.price)
-    //   }
+      const body = {
+        imagen: "imagen1",
+        nombre: values.name.toLocaleLowerCase(),
+        categoria: category?.value,
+        marca: values.brand.toLocaleLowerCase(),
+        precio: Number(values.price),
+      }
+
+      console.log('body post patch: ', body)
       // setAuth(auth!.access_token)
       // let res
     //   if (myproduct) {
-    //     res = await patch(`/api/post/update/${mypost.id}`, body)
+    //     res = await patch(`/post/${myproduct.id}`, body)
     //   } else {
-    //     res = await post("/api/post/create", body)
+    //     res = await post("/post", body)
     //   }
       setIsPosting(false)
     //   if (res.data?.error) {
     //     return showToast(
-    //       `Error al ${mypost ? "editar" : "publicar"} el servicio`,
+    //       `Error al ${myproduct ? "editar" : "publicar"} el servicio`,
     //       res.data?.message[0],
     //       "error"
     //     )
     //   } else {
     //     showToast(
-    //       `${mypost ? "Edición" : "Creación"} exitosa`,
-    //       `Se ${mypost ? "editó" : "creó"} correctamente el anuncio`,
+    //       `${myproduct ? "Edición" : "Creación"} exitosa`,
+    //       `Se ${myproduct ? "editó" : "creó"} correctamente el anuncio`,
     //       "success"
     //     )
     //     setTimeout(() => {
@@ -294,14 +283,36 @@ export default function ProductModal({
                   <SelectField
                     fullWidth
                     required
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     option={category}
                     placeholder="Seleccione una categoría "
                     onChange={handleChangeSelect}
                     errorHelper={!!errors.category}
                   >
-                    {[{label:'Categoria 1', value:1},{label:'Categoría 2', value:2},{label:'Categoría 3', value:3}].map((cat, idx) => (
+                    {[{
+                        label:'Casacas', 
+                        value:1
+                      },
+                      {
+                        label:'Chompas', 
+                        value:2
+                      },
+                      {
+                        label:'Polos', 
+                        value:3
+                      },
+                      {
+                        label:'Jeans', 
+                        value:4
+                      },
+                      {
+                        label:'Calzado',
+                        value:5
+                      },
+                      {
+                        label:'Accesorio', 
+                        value:6
+                      }].map((cat, idx) => (
                       <Option key={idx} value={cat.value}>
                         {cat.label}
                       </Option>

@@ -12,9 +12,10 @@ import SwiperCore, { Autoplay, Navigation } from "swiper/core"
 import { useContext } from "react"
 import { DataContext } from "../../store/GlobalState"
 SwiperCore.use([Autoplay, Navigation])
-export default function MangnamentProduct() {
+export default function MangnamentProduct({products}) {
     const { state } = useContext(DataContext)
-    const { auth, products } = state
+    const { auth } = state
+    // const { auth, products } = state
     return (
         <Box bg="primary">
             <Box className="generalWrapper">
@@ -23,40 +24,43 @@ export default function MangnamentProduct() {
                     <ProductModal variant="secondary" showModalButtonText="Nuevo" width="3xs"/>
                 </Flex>
             
-                <Swiper
-                  slidesPerView={4}
-                  spaceBetween={-5}
-                  navigation
-                  loop={true}
-                  autoplay={{
-                    delay: 4500,
-                    disableOnInteraction: false
-                  }}
-                  breakpoints={{
-                    // when window width is >= 640px
-                    100: {
-                      slidesPerView: 1
-                    },
-                    // when window width is >= 768px
-                    768: {
-                      slidesPerView: 2
-                    },
-                    1000: {
-                      slidesPerView: 4
-                    }
-                  }}
-                  className="mySwiperSlideTwo"
-                >
-                    {
-                        products.map( (product, index) => {
-                            return (
-                                <SwiperSlide key={product.id}>
-                                    <CardProduct role={auth.user.role} product={product}/>
-                                </SwiperSlide>
-                            )
-                        })
-                    }
-               </Swiper>
+                { products.length > 0 ? 
+                  (<Swiper
+                    slidesPerView={4}
+                    spaceBetween={-5}
+                    navigation
+                    loop={true}
+                    autoplay={{
+                      delay: 4500,
+                      disableOnInteraction: false
+                    }}
+                    breakpoints={{
+                      // when window width is >= 640px
+                      100: {
+                        slidesPerView: 1
+                      },
+                      // when window width is >= 768px
+                      768: {
+                        slidesPerView: 2
+                      },
+                      1000: {
+                        slidesPerView: 4
+                      }
+                    }}
+                    className="mySwiperSlideTwo"
+                  >
+                      {
+                          products.map( (product, index) => {
+                              return (
+                                  <SwiperSlide key={product.id}>
+                                      <CardProduct role={auth.user.role} product={product}/>
+                                  </SwiperSlide>
+                              )
+                          })
+                      }
+                  </Swiper>)
+               : <p>No hay productos</p>
+               }
             </Box>
         </Box>
     )
