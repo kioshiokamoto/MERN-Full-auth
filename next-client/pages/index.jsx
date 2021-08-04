@@ -32,7 +32,8 @@ export default function Home() {
                 auth.user?.role === "admin" ?
                 (
                   <>
-                    <Requests/>
+                    {/* <Requests/> */}
+                    <Hero/>
                     <MangnamentProduct/>
                   </>
                 )

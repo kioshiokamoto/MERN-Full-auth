@@ -63,7 +63,7 @@ export default function Register({
       })
       setIsPosting(false)
 
-      if (resp.data.response?.error) {
+      if (resp.data.err) {
         showToast("Error al registrarse", resp.data.response?.error, "error")
       } else {
         router.push("/active-message")

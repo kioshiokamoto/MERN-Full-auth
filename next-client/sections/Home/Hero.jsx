@@ -2,6 +2,7 @@ import {
     Box, Flex,Text, Button
   } from "@chakra-ui/react"
 import Image from 'next/image'
+import ZIcon from '../../components/Icon'
 import SellerModal from "./SellerModal"
 export default function Hero() {
     return (
@@ -24,7 +25,8 @@ export default function Hero() {
                     <Flex direction="column" w="80" p="2" >
                         <Text color="primary" fontSize="5xl" letterSpacing="widest" fontWeight="medium">ZONALI</Text>
                         <Text color="letter" fontSize="lg" fontWeight="medium">Vende tus prendas en un solo lugar !Empieza a publicar hoy!</Text>
-                        <SellerModal showModalButtonText="Solicitar ser vendedor" variant="primary" color="letter" fontWeight="normal" my="4"/>
+                        <Button variant="primary" color="letter" fontWeight="normal" my="4">Solicitar ser vendedor <ZIcon name="wp" color="icon" className="mx2"/></Button>
+                        {/* <SellerModal showModalButtonText="Solicitar ser vendedor" variant="primary" color="letter" fontWeight="normal" my="4"/> */}
                     </Flex>
                 </Box>
             </Box>
