@@ -3,12 +3,12 @@ const shoppingCtrl = require("../controllers/shoppingController");
 const auth = require("../middlewares/auth");
 const authAdmin = require("../middlewares/authAdmin");
 
-router.post("/", shoppingCtrl.addToCar);
+router.post("/", auth, shoppingCtrl.addToCar);
 
-router.get("/:usuario", shoppingCtrl.getCartItems);
+router.get("/:usuario", auth, shoppingCtrl.getCartItems);
 
-router.post("/buy", shoppingCtrl.buyArticles);
+router.post("/buy", auth, shoppingCtrl.buyArticles);
 
-router.get("/buy/:usuario", shoppingCtrl.getPurchasedArticles);
+router.get("/buy/:usuario", auth, shoppingCtrl.getPurchasedArticles);
 
 module.exports = router;
