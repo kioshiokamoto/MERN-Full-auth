@@ -16,14 +16,19 @@ import {
     InputGroup,
     InputLeftAddon
   } from "@chakra-ui/react"
-import {useRef, useState} from 'react'
+import {useContext, useEffect, useRef, useState} from 'react'
+import { DataContext } from "../store/GlobalState"
 import BuyModal from "./BuyModal"
 import ZIcon from './Icon'
 import ItemCart from "./ItemCart"
 export default function DrawerCart({icon}) {
+
   const [openBuyModal, setOpenBuyModal] = useState(false)
+  const [total, setTotal] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
+  const { state } = useContext(DataContext)
+  const { cart } = state
   const handleBuy = () =>{
     setOpenBuyModal(true)
   }
@@ -36,6 +41,17 @@ export default function DrawerCart({icon}) {
     }
   }
 
+  useEffect(() => {
+    const getTotal = () => {
+      const res = cart.reduce((prev, item) => {
+        return prev + item.precio * item.cantidad;
+      }, 0);
+
+      setTotal(res);
+    };
+
+    getTotal();
+  }, [cart]);
     return (
       <>
         {/* <Button colorScheme="blue" onClick={onOpen} ref={btnRef}>
@@ -54,7 +70,7 @@ export default function DrawerCart({icon}) {
             >
             <ZIcon name={icon} color="icon" />
             <Box w="5" h="5" backgroundColor="red" borderRadius="full" d="flex" alignItems="center" justifyContent="center" position="absolute" top="-1" right="-1">
-              <Text fontSize="xs" color="white">6</Text>
+              <Text fontSize="xs" color="white">{cart.length}</Text>
             </Box>
         </Circle> 
         <Drawer isOpen={isOpen}
@@ -73,11 +89,11 @@ export default function DrawerCart({icon}) {
             </DrawerHeader>
             <DrawerBody>
               {
-                  [1,2,3,4,5,6].map( item => (
-                      <ItemCart/>
+                  cart.map( productCart => (
+                      <ItemCart key={productCart.id} productCart={productCart}/>
                   ))
               }
-              <Text textAlign="end" color="letter" py="4">Monto total a pagar: S/. 300</Text>
+              <Text textAlign="end" color="letter" py="4">Monto total a pagar: S/. {total}</Text>
             </DrawerBody>
             <DrawerFooter>
                 <Button type="submit" form="my-form" variant="primary" color="letter" isFullWidth onClick={handleBuy}>

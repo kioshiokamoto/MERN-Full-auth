@@ -24,7 +24,6 @@ import { get } from "../utils/http"
 import DrawerCart from "./DrawerCart"
 
 export default function Navbar() {
-  const role = "admin"
   const router = useRouter()
   const activeRoute = router?.pathname.split("/")[1]
   const { state, dispatch } = useContext(DataContext)
@@ -32,10 +31,9 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     localStorage.removeItem("isLogged")
-    await get("/api/user/logout")
+    //await get("/api/user/logout")
     console.log("log out")
     dispatch({ type: "AUTH", payload: {} })
-    // return router.push("/")
     return window.location.reload()
   }
 
@@ -50,7 +48,7 @@ export default function Navbar() {
       // </ul>
       <Flex align="center">
         {
-          role !== "admin" ?  (
+          auth.user.role !== "admin" ?  (
           <>
             <DrawerCart icon="cart"/>
             <Text>Camila Rosales</Text>
@@ -110,7 +108,7 @@ export default function Navbar() {
             authReady ? (
               <>
               {
-                (Object.keys(auth).length !== 0 || role!=="admin") ? (
+                (Object.keys(auth).length === 0 || auth.user?.role==="admin") ? (
                   null
                 ) : (
                   <li

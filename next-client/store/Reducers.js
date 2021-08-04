@@ -18,20 +18,10 @@ const reducers = (state, action) => {
         ...state,
         authType: action.payload
       }
-    case ACTIONS.USER:
+    case ACTIONS.GET_PRODUCTS:
       return {
         ...state,
-        user: action.payload
-      }
-    case ACTIONS.GET_CATEGORIES:
-      return {
-        ...state,
-        categories: [...action.payload]
-      }
-    case ACTIONS.POSTS:
-      return {
-        ...state,
-        posts: [...action.payload]
+        products: [...action.payload]
       }
     case ACTIONS.ADD_POST:
       return {
@@ -56,28 +46,42 @@ const reducers = (state, action) => {
           }
         })
       }
-    case ACTIONS.UPDATE_NAME:
-      return {
+    case ACTIONS.ADD_ALL_CART:
+      return{
         ...state,
-        auth: {
-          ...state.auth,
-          user: {
-            ...state.auth.user,
-            us_nombre: action.payload.name,
-            us_apellido: action.payload.lastname
-          }
-        }
+        cart:[ ...action.payload]
       }
-    case ACTIONS.UPDATE_IMAGE:
-      return {
+    case ACTIONS.ADD_CART:
+      return{
         ...state,
-        auth: {
-          ...state.auth,
-          user: {
-            ...state.auth.user,
-            avatar: action.payload
+        cart:[ action.payload,...state.cart]
+      }
+    case ACTIONS.DELETE_CART:
+      return{
+        ...state,
+        cart: state.cart.filter( item => item.id !== action.payload)
+      }
+    case ACTIONS.INCREASE_NUMBER_PRODUCT:
+      return{
+        ...state,
+        cart: state.cart.map( item => {
+            if(item.id === action.payload.id){
+                item.cantidad +=1
+            }
+            return item
           }
-        }
+        )
+      }
+    case ACTIONS.DECREASE_NUMBER_PRODUCT:
+      return{
+        ...state,
+        cart: state.cart.map( item => {
+            if(item.id === action.payload.id){
+                item.cantidad -=1
+            }
+            return item
+          }
+        )
       }
     default:
       return state
