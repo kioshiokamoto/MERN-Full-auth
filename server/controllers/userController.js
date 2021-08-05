@@ -91,6 +91,7 @@ const userCtrl = {
     login: async (req, res) => {
         try {
             const { email, password } = req.body;
+            console.log(req.body);
             const user = await Users.findOne({ email });
             if (!user)
                 return res
@@ -121,7 +122,7 @@ const userCtrl = {
     getAccessToken: async (req, res) => {
         try {
             const rf_token = req.cookies.refreshtoken;
-            // console.log(rf_token);
+            console.log("Access token" + rf_token);
             if (!rf_token)
                 return res.status(400).json({ msg: "Please login now" });
 
