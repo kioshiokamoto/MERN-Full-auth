@@ -101,10 +101,16 @@ const userCtrl = {
                 return res.status(400).json({ msg: "Password is incorrect" });
 
             const refresh_token = createRefreshToken({ id: user._id });
+            res.setHeader("Access-Control-Allow-Credentials", "true");
+            res.setHeader(
+                "Access-Control-Allow-Headers",
+                "Cookie,Set-Cookie,Accept,Content-Type"
+            );
             res.cookie("refreshtoken", refresh_token, {
                 httpOnly: true,
                 path: "/user/refresh_token",
                 maxAge: 7 * 24 * 60 * 60 * 1000,
+                secure: true,
             });
             res.json({ msg: "Login success!" });
         } catch (error) {
@@ -114,6 +120,7 @@ const userCtrl = {
     getAccessToken: async (req, res) => {
         try {
             const rf_token = req.cookies.refreshtoken;
+            console.log(rf_token);
             if (!rf_token)
                 return res.status(400).json({ msg: "Please login now" });
 
