@@ -39,6 +39,7 @@ async function http(path, method, body) {
     const controller = new AbortController();
     signals.set(path, controller);
     try {
+        console.log('body en http ', body)
         const response = await fetch(`${baseUrl}${path}`, {
             ...httpInit,
             method,

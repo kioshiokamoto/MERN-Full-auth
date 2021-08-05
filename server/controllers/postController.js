@@ -2,6 +2,7 @@ const Posts = require("../models/postModel");
 const postCtrl = {
   upload: async (req, res) => {
     try {
+      console.log(req.body)
       const { nombre, categoria, marca, precio, image } = req.body;
       let newPost;
       if (image) {

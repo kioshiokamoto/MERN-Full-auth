@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 import { useState, useEffect, useContext } from "react";
 import ZIcon from "../../components/Icon";
-import axios from "axios";
+//import axios from "axios";
 import {
     Text,
     ModalHeader,
@@ -131,22 +131,12 @@ export default function ProductModal({
             //   if (imgNewURL.length > 0) media = await imageUpload(imgNewURL)
             //   const imagesPost = [...imgOldUrlParse, ...media]
             // -------------------------------------------------------------
-            const body = {
-                imagen: "imagen1",
-                nombre: values.name.toLocaleLowerCase(),
-                categoria: category?.value,
-                marca: values.brand.toLocaleLowerCase(),
-                precio: Number(values.price),
-            };
-            console.log("body post patch: ", body);
-
-            console.log("imagesFile[0]: ", imagesFile[0]);
             let formData = new FormData();
             formData.append("file", imagesFile[0]);
             setAuth(auth.access_token);
             console.log("token" + auth.access_token);
 
-            const url = await fetch(
+            const res = await fetch(
                 `http://localhost:5001/api/upload_post_image`,
                 {
                     headers: {
@@ -156,14 +146,35 @@ export default function ProductModal({
                     body: formData,
                 }
             );
-            console.log("url: ", url);
-
-            // let res
-            //   if (myproduct) {
-            //     res = await patch(`/post/${myproduct.id}`, body)
-            //   } else {
-            //     res = await post("/post", body)
-            //   }
+            const data = await res.json()
+            const body = {
+                image: data.url,
+                nombre: values.name.toLocaleLowerCase(),
+                categoria: category?.value,
+                marca: values.brand.toLocaleLowerCase(),
+                precio: Number(values.price),
+            };
+            console.log("body post patch: ", body);
+            let resp
+              if (myproduct) {
+                resp = await patch(`/post/${myproduct.id}`, body)
+              } else {
+                  console.log('postando')
+                resp = await post("/post", body)
+                const respuesta = await fetch(
+                    `http://localhost:5001/post`,
+                    {
+                        headers: {
+                            Authorization: auth.access_token,
+                        },
+                        method: "POST",
+                        body: JSON.stringify(body),
+                    }
+                );
+                const data = await respuesta.json()
+                console.log('resp post patch http: ', data)
+                console.log('resp post patch fecth: ', resp)
+              }
             setIsPosting(false);
             //   if (res.data?.error) {
             //     return showToast(
