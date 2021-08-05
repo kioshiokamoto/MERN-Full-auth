@@ -54,7 +54,7 @@ export default function Login({ variant, width, showModalButtonText }) {
                 email: values.email,
                 password: values.password,
             });
-            console.log(res);
+            console.log("Respuesta de login:", res);
             setIsPosting(false);
             // console.log("res.data Login: ", res)
             // const error = false
