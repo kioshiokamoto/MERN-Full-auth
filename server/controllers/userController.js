@@ -48,7 +48,7 @@ const userCtrl = {
 
             const url = `${CLIENT_URL}/user/activate/${activation_token}`;
 
-            sendEmail(email, url, "Click here");
+            sendEmail(email, url, "Click aquí");
 
             res.json({
                 msg: "Register success, Please activate you email to start",
@@ -147,7 +147,7 @@ const userCtrl = {
             const access_token = createAccessToken({ id: user._id });
             const url = `${CLIENT_URL}/user/reset/${access_token}`;
 
-            sendEmail(email, url, "Reset your password");
+            sendEmail(email, url, "Resetea tu contraseña");
 
             res.json({ msg: "Re-send the password, please check your mail" });
         } catch (error) {
