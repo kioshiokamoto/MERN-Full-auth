@@ -9,7 +9,14 @@ headers.append("Accept", "application/json");
 
 export function setAuth(token) {
     headers.delete("Authorization");
-    headers.append("Authorization", `Bearer ${token}`);
+    headers.append("Authorization", `${token}`);
+    headers.append("Content-Type", "application/json");
+}
+
+export function setAuthMultiPart(token){
+    headers.delete("Authorization");
+    headers.append("Authorization", `${token}`);
+    headers.append("Content-Type", "multipart/form-data");
 }
 
 const signals = new Map();

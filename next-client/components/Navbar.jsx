@@ -51,7 +51,7 @@ export default function Navbar() {
           auth.user.role !== "admin" ?  (
           <>
             <DrawerCart icon="cart"/>
-            <Text>Camila Rosales</Text>
+            <Text>{auth.user.us_nombre} {" "} {auth.user.us_apellido}</Text>
           </>
           ) :(
             <Text>Mi admin</Text>

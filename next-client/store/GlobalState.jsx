@@ -41,48 +41,34 @@ export const DataProvider = ({ children }) => {
                 try {
                     const accessToken = await post("/user/refresh_token", {});
                     console.log("accessToken: ", accessToken);
-                    // if (accessToken.data.msg === "Please login now") {
-                    //    localStorage.removeItem("isLogged")
-                    //    return showToast("Error con el token de acceso")
-                    // }
-                    // // console.log("setAuth: ", accessToken.data.access_token)
-                    // setAuth(accessToken.data.access_token)
-                    // const user = await get("/user/info")
-                    // if (user.data.msg === "Invalid authentication") {
-                    //    return showToast("Error al recuperar datos del usuario")
-                    // }
-                    // console.log('user: ',user)
+                    if (accessToken.data.msg === "Please login now") {
+                       localStorage.removeItem("isLogged")
+                       return showToast("Error con el token de acceso")
+                    }
+                    // console.log("setAuth: ", accessToken.data.access_token)
+                    setAuth(accessToken.data.access_token)
+                    const user = await get("/user/info")
+                    if (user.data.msg === "Invalid authentication") {
+                       return showToast("Error al recuperar datos del usuario")
+                    }
+                    console.log('user: ',user)
                     dispatch({
                         type: "AUTH",
                         payload: {
-                            access_token: "123456789abrocoa",
+                            access_token: accessToken.data.access_token,
                             user: {
-                                id: 1,
-                                us_correo: "sasisromero10@gmail.com",
-                                us_nombre: "Sebastiana",
-                                us_apellido: "Asis Romero",
+                                id: user.data.id,
+                                createdAt: user.data.createdAt,
+                                updatedAt: user.data.updatedAt,
+                                us_correo: user.data.email,
+                                us_nombre: user.data.name.split(' ')[0],
+                                us_apellido: user.data.name.split(' ')[1],
                                 avatar: "",
-                                role: "admin",
+                                role: user.data.role === "0" ? "user" :"admin"
                                 // posts: user.data.posts
                             },
                         },
                     });
-                    // dispatch({
-                    //   type: "AUTH",
-                    //   payload: {
-                    //     access_token: accessToken.data.access_token,
-                    //     user: {
-                    //       id: user.data.id,
-                    //       createdAt: user.data.createdAt,
-                    //       updatedAt: user.data.updatedAt,
-                    //       us_correo: user.data.us_correo,
-                    //       us_nombre: user.data.us_nombre,
-                    //       us_apellido: user.data.us_apellido,
-                    //       avatar: user.data.avatar
-                    //       // posts: user.data.posts
-                    //     }
-                    //   }
-                    // })
 
                     if (typeLogged === "normal") {
                         dispatch({ type: "AUTH_TYPE", payload: "normal" });

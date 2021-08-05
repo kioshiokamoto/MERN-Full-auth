@@ -32,7 +32,7 @@ import SelectField, { Option } from "../../components/SelectField"
 import { regexOnlyString } from "../../utils/regex"
 
 // import { imageUpload } from "../../utils/imageUpload"
-import { patch, post, setAuth } from "../../utils/http"
+import { patch, post, setAuth, setAuthMultiPart } from "../../utils/http"
 
 import { DataContext } from "../../store/GlobalState"
 import { toCapitalFirstLetter } from "../../utils/toCapital"
@@ -76,7 +76,7 @@ export default function ProductModal({
   }
   const { state, dispatch } = useContext(DataContext)
   // @ts-ignore
-//   const { auth, categories } = state
+  const { auth } = state
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [values, handleInputChange, reset] = useForm(initialState.values)
   const [category, setCategory] = useState(initialState.category)
@@ -138,9 +138,22 @@ export default function ProductModal({
         marca: values.brand.toLocaleLowerCase(),
         precio: Number(values.price),
       }
-
       console.log('body post patch: ', body)
-      // setAuth(auth!.access_token)
+
+      console.log('imagesFile[0]: ',imagesFile[0])
+      let formData = new FormData();
+			formData.append('file', imagesFile[0]);
+      setAuth(auth.access_token)
+      const url = await fetch(`http://localhost:5001/api/upload_post_image`,{
+        headers: {
+          'Authorization': auth.access_token,
+          'Content-Type': 'multipart/form-data'
+        },
+        method: "POST",
+        body: formData
+      })
+      console.log('url: ',url)
+     
       // let res
     //   if (myproduct) {
     //     res = await patch(`/post/${myproduct.id}`, body)
