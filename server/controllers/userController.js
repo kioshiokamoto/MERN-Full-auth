@@ -15,6 +15,7 @@ const userCtrl = {
     register: async (req, res) => {
         try {
             const { name, email, password } = req.body;
+
             if (!name || !email || !password) {
                 return res
                     .status(400)
@@ -120,7 +121,7 @@ const userCtrl = {
     getAccessToken: async (req, res) => {
         try {
             const rf_token = req.cookies.refreshtoken;
-            console.log(rf_token);
+            // console.log(rf_token);
             if (!rf_token)
                 return res.status(400).json({ msg: "Please login now" });
 
@@ -305,7 +306,7 @@ const userCtrl = {
                 .then((res) => {
                     return res;
                 });
-            console.log(data);
+            // console.log(data);
 
             const { email, name, picture } = data;
 
