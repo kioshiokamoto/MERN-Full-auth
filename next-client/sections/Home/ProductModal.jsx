@@ -144,6 +144,8 @@ export default function ProductModal({
       let formData = new FormData();
 			formData.append('file', imagesFile[0]);
       setAuth(auth.access_token)
+
+      
       const url = await fetch(`http://localhost:5001/api/upload_post_image`,{
         headers: {
           'Authorization': auth.access_token,
