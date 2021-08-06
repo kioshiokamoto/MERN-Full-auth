@@ -72,7 +72,7 @@ export default function Register({ variant, width, showModalButtonText }) {
             );
             
             const data = await respRegister.json();
-            console.log(data);
+
             setIsPosting(false);
 
             // if (resp.data?.err) {

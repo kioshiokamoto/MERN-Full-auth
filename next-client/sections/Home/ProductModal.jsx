@@ -152,8 +152,6 @@ export default function ProductModal({
             //   const imagesPost = [...imgOldUrlParse, ...media]
             // -------------------------------------------------------------
             let url;
-            console.log("imagesFile: ", imagesFile);
-            console.log("imagesFile.size: ", imagesFile[0].size);
             if (imagesFile[0].size) {
                 let formData = new FormData();
                 formData.append("file", imagesFile[0]);
@@ -180,7 +178,6 @@ export default function ProductModal({
                 marca: values.brand,
                 precio: Number(values.price),
             };
-            console.log("body post patch: ", body);
             setAuth(auth.access_token);
             let resp;
             if (myproduct) {
@@ -196,7 +193,7 @@ export default function ProductModal({
                         body: JSON.stringify(body),
                     }
                 );
-                console.log("EDITANDO");
+    
             } else {
                 //resp = await post("/post", body);
                 resp = await fetch(
@@ -210,17 +207,11 @@ export default function ProductModal({
                         body: JSON.stringify(body),
                     }
                 );
-                console.log("postando");
+  
 
                 //console.log("resp post patch fecth: ", resp);
             }
             const data_product = await resp.json();
-            console.log(
-                "data_product: ",
-                data_product,
-                "asda, ",
-                data_product.msg !== "Se actualizo post correctamente"
-            );
             setIsPosting(false);
             if (
                 data_product.msg !== "Post creado correctamente" &&

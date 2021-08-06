@@ -33,7 +33,6 @@ export default function Navbar() {
     localStorage.removeItem("isLogged")
     //await get("/user/logout")
     await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/logout`)
-    console.log("log out")
     dispatch({ type: "AUTH", payload: {} })
     return window.location.reload()
   }

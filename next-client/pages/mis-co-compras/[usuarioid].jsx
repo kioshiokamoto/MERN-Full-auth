@@ -11,7 +11,6 @@ import { DataContext } from "../../store/GlobalState";
 import { get } from "../../utils/http";
 
 export default function MisCompras({productsBuyed}) {
-    console.log(productsBuyed)
     return (
     <div>
       <Head>

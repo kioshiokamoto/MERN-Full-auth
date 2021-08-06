@@ -68,7 +68,6 @@ export default function Login({ variant, width, showModalButtonText }) {
             })
             const dataLogin= await respLogin.json()
             const res={error:null, data:dataLogin}
-            console.log("Respuesta de login:", res);
             setIsPosting(false);
             // console.log("res.data Login: ", res)
             // const error = false

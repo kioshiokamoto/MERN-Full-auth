@@ -37,12 +37,6 @@ export default function DrawerCart({icon}) {
 
   const handlePay = async(result)=>{
     if(result === true){
-      console.log('comprado')
-      console.log('auth: ', auth)
-      console.log('bus cart: ',{
-        usuario: auth.user.id,
-        products:cart
-      })
       const cartBody = cart.map(item=>{
         return {
           producto: item._id,
@@ -66,7 +60,6 @@ export default function DrawerCart({icon}) {
                     }),
                 });
       const data = await resp.json()
-      console.log('res shopppin: ',data)
       if(data.msg==='Se registra compras'){
         setOpenBuyModal(false)
         dispatch({type:'CLEAN_CART'})
