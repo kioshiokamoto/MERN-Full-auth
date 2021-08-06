@@ -55,7 +55,7 @@ export default function DrawerCart({icon}) {
       //   productos:cartBody
       // })
 
-      const resp = await fetch(`http://localhost:5001/shopping/buy`, {
+      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/shopping/buy`, {
                     headers: {
                         "Content-Type": "application/json",
                     },

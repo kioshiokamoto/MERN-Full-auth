@@ -185,7 +185,7 @@ export default function ProductModal({
             let resp;
             if (myproduct) {
                 //resp = await patch(`/post/${myproduct.id}`, body);
-                resp = await fetch(`http://localhost:5001/post/${myproduct._id}`, {
+                resp = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/post/${myproduct._id}`, {
                     headers: {
                         Authorization: auth.access_token,
                         "Content-Type": "application/json",
@@ -196,7 +196,7 @@ export default function ProductModal({
                 console.log("EDITANDO");
             } else {
                 //resp = await post("/post", body);
-                resp = await fetch(`http://localhost:5001/post`, {
+                resp = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/post`, {
                     headers: {
                         Authorization: auth.access_token,
                         "Content-Type": "application/json",

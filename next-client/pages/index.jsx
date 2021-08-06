@@ -51,13 +51,3 @@ export default function Home({products}) {
     </div>
   )
 }
-
-// export const getServerSideProps = async context => {
-//   // const id = context.params.id
-//   const res = await fetch(`${process.env.API_BASE_URL}/post/all`)
-//   // @ts-ignore
-//   const data = await res.json()
-//   return {
-//     props: { products: data.posts }
-//   }
-// }
