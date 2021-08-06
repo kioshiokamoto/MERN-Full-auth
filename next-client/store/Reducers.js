@@ -23,26 +23,26 @@ const reducers = (state, action) => {
         ...state,
         products: [...action.payload]
       }
-    case ACTIONS.ADD_POST:
+    case ACTIONS.ADD_PRODUCT:
       return {
         ...state,
-        posts: [action.payload, ...state.posts]
+        products: [action.payload, ...state.products]
       }
-    case ACTIONS.DELETE_POST:
+    case ACTIONS.DELETE_PRODUCT:
       return {
         ...state,
-        posts: state.posts.filter(post => {
-          return post.id !== action.payload
+        products: state.products.filter(product => {
+          return product._id !== action.payload
         })
       }
-    case ACTIONS.EDIT_POST:
+    case ACTIONS.EDIT_PRODUCT:
       return {
         ...state,
-        posts: state.posts.map(post => {
-          if (post.id === action.payload.id) {
+        products: state.products.map(product => {
+          if (product._id === action.payload._id) {
             return action.payload
           } else {
-            return post
+            return product
           }
         })
       }

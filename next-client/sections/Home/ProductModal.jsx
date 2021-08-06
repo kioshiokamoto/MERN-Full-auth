@@ -33,7 +33,7 @@ import SelectField, { Option } from "../../components/SelectField";
 import { regexOnlyString } from "../../utils/regex";
 
 // import { imageUpload } from "../../utils/imageUpload"
-import { patch, post, setAuth, setAuthMultiPart } from "../../utils/http";
+import { patch, post, setAuth } from "../../utils/http";
 
 import { DataContext } from "../../store/GlobalState";
 import { toCapitalFirstLetter } from "../../utils/toCapital";
@@ -48,6 +48,26 @@ export default function ProductModal({
     icon = false,
     myproduct,
 }) {
+    const categoriaId = (categoria)=>{
+        switch (categoria) {
+            case "Casacas":
+                return 1
+            case "Chompas":
+                return 2;
+            case "Polos":
+                return 3;
+            case "Jeans":
+                return 4;
+            case "Calzado":
+                return 5;
+            case "Accesorio":
+                return 6;
+        }
+    }
+    let idCategory 
+    if(myproduct){
+        idCategory = categoriaId(myproduct.categoria)
+    }
     let initialState;
     if (myproduct) {
         initialState = {
@@ -57,10 +77,10 @@ export default function ProductModal({
                 price: myproduct.precio.toString(),
             },
             category: {
-                value: myproduct.categoria.id,
-                label: myproduct.categoria.nombre,
+                value: idCategory,
+                label: myproduct.categoria,
             },
-            imagesFiles: [myproduct.imagen],
+            imagesFiles: [myproduct.image],
         };
     } else {
         initialState = {
@@ -131,37 +151,52 @@ export default function ProductModal({
             //   if (imgNewURL.length > 0) media = await imageUpload(imgNewURL)
             //   const imagesPost = [...imgOldUrlParse, ...media]
             // -------------------------------------------------------------
-            let formData = new FormData();
-            formData.append("file", imagesFile[0]);
-            setAuth(auth.access_token);
-            console.log("token" + auth.access_token);
-
-            const res = await fetch(
-                `http://localhost:5001/api/upload_post_image`,
-                {
-                    headers: {
-                        Authorization: auth.access_token,
-                    },
-                    method: "POST",
-                    body: formData,
-                }
-            );
-            const data = await res.json();
+            let url
+            console.log('imagesFile: ',imagesFile)
+            console.log('imagesFile.size: ', imagesFile[0].size)
+            if(imagesFile[0].size){
+                let formData = new FormData();
+                formData.append("file", imagesFile[0]);
+                const res = await fetch(
+                    `http://localhost:5001/api/upload_post_image`,
+                    {
+                        headers: {
+                            Authorization: auth.access_token,
+                        },
+                        method: "POST",
+                        body: formData,
+                    }
+                );
+                const data = await res.json();
+                url = data.url
+            }else{
+                url= imagesFile[0]
+            }
+            
             const body = {
-                image: data.url,
+                image: url,
                 nombre: values.name.toLocaleLowerCase(),
-                categoria: category?.value,
-                marca: values.brand.toLocaleLowerCase(),
+                categoria: category?.label,
+                marca: values.brand,
                 precio: Number(values.price),
             };
             console.log("body post patch: ", body);
+            setAuth(auth.access_token);
             let resp;
             if (myproduct) {
-                resp = await patch(`/post/${myproduct.id}`, body);
+                //resp = await patch(`/post/${myproduct.id}`, body);
+                resp = await fetch(`http://localhost:5001/post/${myproduct._id}`, {
+                    headers: {
+                        Authorization: auth.access_token,
+                        "Content-Type": "application/json",
+                    },
+                    method: "PATCH",
+                    body: JSON.stringify(body),
+                });
+                console.log("EDITANDO");
             } else {
-                console.log("postando");
-                resp = await post("/post", body);
-                const respuesta = await fetch(`http://localhost:5001/post`, {
+                //resp = await post("/post", body);
+                resp = await fetch(`http://localhost:5001/post`, {
                     headers: {
                         Authorization: auth.access_token,
                         "Content-Type": "application/json",
@@ -169,37 +204,39 @@ export default function ProductModal({
                     method: "POST",
                     body: JSON.stringify(body),
                 });
-                const data = await respuesta.json();
-                console.log("resp post patch http: ", data);
-                console.log("resp post patch fecth: ", resp);
+                console.log("postando");
+               
+                //console.log("resp post patch fecth: ", resp);
             }
+            const data_product = await resp.json();
+            console.log('data_product: ', data_product, 'asda, ', data_product.msg!=='Se actualizo post correctamente');
             setIsPosting(false);
-            //   if (res.data?.error) {
-            //     return showToast(
-            //       `Error al ${myproduct ? "editar" : "publicar"} el servicio`,
-            //       res.data?.message[0],
-            //       "error"
-            //     )
-            //   } else {
-            //     showToast(
-            //       `${myproduct ? "Edición" : "Creación"} exitosa`,
-            //       `Se ${myproduct ? "editó" : "creó"} correctamente el anuncio`,
-            //       "success"
-            //     )
-            //     setTimeout(() => {
-            //       onClose()
-            //     }, 1500)
-            //     // TODO: hacer que la actualizacion de los post sea por disptach en auth
-            //     if (mypost) {
-            //       dispatch({ type: "EDIT_POST", payload: res.data.data })
-            //     } else {
-            //       dispatch({ type: "ADD_POST", payload: res.data.data })
-            //     }
-            //   }
+              if (data_product.msg!=='Post creado correctamente' && data_product.msg!=='Se actualizo post correctamente') {
+                return showToast(
+                  `Error al ${myproduct ? "editar" : "publicar"} el servicio`,
+                  'Error con el contenido del producto',
+                  "error"
+                )
+              } else {
+                showToast(
+                  `${myproduct ? "Edición" : "Creación"} exitosa`,
+                  `Se ${myproduct ? "editó" : "creó"} correctamente el anuncio`,
+                  "success"
+                )
+                setTimeout(() => {
+                  onClose()
+                }, 1500)
+                // TODO: hacer que la actualizacion de los post sea por disptach en auth
+                if (myproduct) {
+                  dispatch({ type: "EDIT_PRODUCT", payload: data_product.post })
+                } else {
+                  dispatch({ type: "ADD_PRODUCT", payload: data_product.post })
+                }
+              }
 
-            // setTimeout(() => {
-            //     onClose();
-            // }, 1500);
+            setTimeout(() => {
+                onClose();
+            }, 1500);
 
             // ---------------------------------------------------------
         }
@@ -300,6 +337,7 @@ export default function ProductModal({
                                 </FormLabel>
 
                                 <Input
+                                    color="letter"
                                     fontSize="sm"
                                     type="text"
                                     placeholder="Escribe nombre del servicio aquí"
@@ -407,6 +445,7 @@ export default function ProductModal({
                                     </FormLabel>
 
                                     <Input
+                                        color="letter"
                                         fontSize="sm"
                                         type="text"
                                         placeholder="Escribe nombre del servicio aquí"
@@ -434,6 +473,7 @@ export default function ProductModal({
                                     </FormLabel>
                                     <NumberInput min={0} defaultValue={price}>
                                         <NumberInputField
+                                            color="letter"
                                             fontSize="sm"
                                             placeholder="S/."
                                             name="price"

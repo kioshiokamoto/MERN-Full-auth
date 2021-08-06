@@ -6,9 +6,9 @@ import {
   } from "@chakra-ui/react"
 import { useContext } from "react";
 import { DataContext } from "../../store/GlobalState";
-export default function Products({products}) {
+export default function Products() {
     const { state } = useContext(DataContext)
-    const { auth } = state
+    const { auth, products } = state
     // const { auth, products } = state
     return (
         <Box backgroundColor="primary" pb="10">

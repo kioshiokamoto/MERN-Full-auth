@@ -8,16 +8,12 @@ headers.append("Content-Type", "application/json");
 headers.append("Accept", "application/json");
 
 export function setAuth(token) {
+    console.log('seteando cabecera')
     headers.delete("Authorization");
     headers.append("Authorization", `${token}`);
     headers.append("Content-Type", "application/json");
 }
 
-export function setAuthMultiPart(token){
-    headers.delete("Authorization");
-    headers.append("Authorization", `${token}`);
-    headers.append("Content-Type", "multipart/form-data");
-}
 
 const signals = new Map();
 
@@ -36,6 +32,7 @@ async function http(path, method, body) {
             headers,
         };
     }
+    console.log('httpInit: ',httpInit.headers.values())
     const controller = new AbortController();
     signals.set(path, controller);
     try {

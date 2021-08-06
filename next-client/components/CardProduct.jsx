@@ -13,6 +13,7 @@ import Dialog from "./Dialog"
 import ProductModal from './../sections/Home/ProductModal'
 import { DataContext } from "../store/GlobalState"
 import showToast from "./Toast"
+import { del, setAuth } from "../utils/http"
 export default function CardProduct({ product, role="user" }) {
     const [openDialog, setOpenDialog] = useState(false)
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
@@ -52,9 +53,13 @@ export default function CardProduct({ product, role="user" }) {
         setOpenDeleteDialog(true)
     }
 
-    const handleDeleteProduct = (result) => {
+    const handleDeleteProduct = async(result) => {
         if(result=== true){
             console.log('eliminado')
+            setAuth(auth.access_token)
+            const res = await del(`/post/${product._id}`)
+            dispatch({ type: "DELETE_PRODUCT", payload: product._id })
+            console.log("delete: ", res)
         }else if(result===false){
             setOpenDeleteDialog(false)
         }
@@ -68,7 +73,7 @@ export default function CardProduct({ product, role="user" }) {
                 >
                 <a>
                     <Image
-                    src= {product?.imagen || '/slide1.png'}
+                    src= {product?.image || '/slide1.png'}
                     alt='imagen'
                     height="500"
                     width="500"
@@ -139,7 +144,7 @@ export default function CardProduct({ product, role="user" }) {
                                 >
                                     <ZIcon name="trash" color="icon" size={20}/>
                                 </Circle>
-                                <ProductModal icon/>
+                                <ProductModal icon myproduct={product}/>
                             </Box>
                         )
                     }

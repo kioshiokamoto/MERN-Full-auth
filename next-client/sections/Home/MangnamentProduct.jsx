@@ -12,9 +12,9 @@ import SwiperCore, { Autoplay, Navigation } from "swiper/core"
 import { useContext } from "react"
 import { DataContext } from "../../store/GlobalState"
 SwiperCore.use([Autoplay, Navigation])
-export default function MangnamentProduct({products}) {
+export default function MangnamentProduct() {
     const { state } = useContext(DataContext)
-    const { auth } = state
+    const { auth, products } = state
     // const { auth, products } = state
     return (
         <Box bg="primary">
@@ -23,8 +23,17 @@ export default function MangnamentProduct({products}) {
                 <Flex align="center" justify="center" pb="5">
                     <ProductModal variant="secondary" showModalButtonText="Nuevo" width="3xs"/>
                 </Flex>
+                {
+                  products.length <=4 && products.length > 0 && (<Grid templateColumns="repeat(4,1fr)">
+                    {
+                      products?.map( product => (
+                          <CardProduct key={product.id} product={product} role={auth.user?.role}/>
+                      ))
+                    }
+                  </Grid>)
+                }
             
-                { products.length > 0 ? 
+                { products.length > 4 && 
                   (<Swiper
                     slidesPerView={4}
                     spaceBetween={-5}
@@ -59,7 +68,9 @@ export default function MangnamentProduct({products}) {
                           })
                       }
                   </Swiper>)
-               : <p>No hay productos</p>
+               }
+               {
+                 products.length ===0 && <p>No hay productos</p>
                }
             </Box>
         </Box>
