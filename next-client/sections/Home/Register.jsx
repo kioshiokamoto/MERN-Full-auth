@@ -51,15 +51,40 @@ export default function Register({ variant, width, showModalButtonText }) {
         setErrors(errorsForm);
         if (isValid) {
             setIsPosting(true);
-            const resp = await post("/user/register", {
-                email: values.email,
-                name: `${values?.name} ${values?.lastName}`,
-                password: values.password,
-            });
-            console.log(resp);
+            // const resp = await post("/user/register", {
+            //     email: values.email,
+            //     name: `${values?.name} ${values?.lastName}`,
+            //     password: values.password,
+            // });
+            const respRegister = await fetch(
+                `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/register`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                    body: JSON.stringify( {
+                        email: values.email,
+                        name: `${values?.name} ${values?.lastName}`,
+                        password: values.password,
+                    }),
+                }
+            );
+            
+            const data = await respRegister.json();
+            console.log(data);
             setIsPosting(false);
 
-            if (resp.data?.err) {
+            // if (resp.data?.err) {
+            //     showToast(
+            //         "Error al registrarse",
+            //         resp.data.response?.error,
+            //         "error"
+            //     );
+            // } else {
+            //     router.push("/active-message");
+            // }
+            if (data?.err) {
                 showToast(
                     "Error al registrarse",
                     resp.data.response?.error,

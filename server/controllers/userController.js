@@ -15,7 +15,7 @@ const userCtrl = {
     register: async (req, res) => {
         try {
             const { name, email, password } = req.body;
-
+            console.log("Body de registro: " + name, email, password);
             if (!name || !email || !password) {
                 return res
                     .status(400)

@@ -14,21 +14,45 @@ export default function Activar() {
     }
     // eslint-disable-next-line camelcase
     const activation_token = router.query.token
-    post("/user/activation", {
-      // eslint-disable-next-line camelcase
-      activation_token
+    // post("/user/activation", {
+    //   // eslint-disable-next-line camelcase
+    //   activation_token
+    // })
+    //   .then(res => {
+      //   console.log("respToke:", res)
+      //   if (
+      //     res.data.name === "JsonWebTokenError" ||
+      //     res.data.name === "TokenExpiredError"
+      //   ) {
+      //     showToast("Error al activar cuenta.", "JWT malformado", "error")
+      //   }
+      // })
+      // .catch(respError => console.log("respError: ", respError))
+
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/activation`,
+    {
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          activation_token
+        }),
     })
-      .then(res => {
-        console.log("respToke:", res)
+    .then(resp => resp.json())
+    .then(data => {
+      console.log("respToke:", data)
         if (
-          res.data.name === "JsonWebTokenError" ||
-          res.data.name === "TokenExpiredError"
+          data.name === "JsonWebTokenError" ||
+          data.name === "TokenExpiredError"
         ) {
           showToast("Error al activar cuenta.", "JWT malformado", "error")
         }
-      })
-      .catch(respError => console.log("respError: ", respError))
+    })
+    .catch(respError => console.log("respError: ", respError))
   }, [router])
+
+  fetch
   return (
     <>
       <ActiveAccount router={router} />

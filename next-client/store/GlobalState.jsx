@@ -39,17 +39,38 @@ export const DataProvider = ({ children }) => {
             const typeLogged = localStorage.getItem("typeLogged");
             if (isLogged) {
                 try {
-                    const accessToken = await post("/user/refresh_token", {});
+                    //const accessToken = await post("/user/refresh_token", {});
+                    const respaccessToken = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/refresh_token`,{
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                        },
+                        method: "POST",
+                        body: JSON.stringify({}),
+                        credentials: "include",
+                    })
+                    const dataAccess = await respaccessToken.json()
+                    const accessToken = {error:null, data:dataAccess}
+                    console.log('accestoken: ',accessToken)
                     if (accessToken.data.msg === "Please login now") {
                        localStorage.removeItem("isLogged")
                        return showToast("Error con el token de acceso")
                     }
                     // console.log("setAuth: ", accessToken.data.access_token)
-                    setAuth(accessToken.data.access_token)
-                    const user = await get("/user/info")
-                    if (user.data.msg === "Invalid authentication") {
-                       return showToast("Error al recuperar datos del usuario")
-                    }
+                    // setAuth(accessToken.data.access_token)
+                    // const user = await get("/user/info")
+                    // if (user.data.msg === "Invalid authentication") {
+                    //    return showToast("Error al recuperar datos del usuario")
+                    // }
+                    const respUser = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/info`,{
+                        headers: {
+                            Authorization: accessToken.data.access_token,
+                            "Content-Type": "application/json",
+                        },
+                        method: "GET",
+                    })
+                    const dataUser = await respUser.json()
+                    const user = { error : null, data:dataUser}
                     dispatch({
                         type: "AUTH",
                         payload: {

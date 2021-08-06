@@ -50,10 +50,24 @@ export default function Login({ variant, width, showModalButtonText }) {
             };
             // console.log("inicio sesion: ",body)
             setIsPosting(true);
-            const res = await post("/user/login", {
-                email: values.email,
-                password: values.password,
-            });
+            // const res = await post("/user/login", {
+            //     email: values.email,
+            //     password: values.password,
+            // });
+            const respLogin = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/login`,{
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    email: values.email,
+                    password: values.password,
+                }),
+                credentials: "include",
+            })
+            const dataLogin= await respLogin.json()
+            const res={error:null, data:dataLogin}
             console.log("Respuesta de login:", res);
             setIsPosting(false);
             // console.log("res.data Login: ", res)
