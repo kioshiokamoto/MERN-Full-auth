@@ -59,6 +59,7 @@ export default function CardProduct({ product, role="user" }) {
             setAuth(auth.access_token)
             const res = await del(`/post/${product._id}`)
             dispatch({ type: "DELETE_PRODUCT", payload: product._id })
+            setOpenDeleteDialog(false)
             console.log("delete: ", res)
         }else if(result===false){
             setOpenDeleteDialog(false)

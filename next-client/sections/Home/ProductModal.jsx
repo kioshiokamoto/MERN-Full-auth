@@ -158,7 +158,7 @@ export default function ProductModal({
                 let formData = new FormData();
                 formData.append("file", imagesFile[0]);
                 const res = await fetch(
-                    `http://localhost:5001/api/upload_post_image`,
+                    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/upload_post_image`,
                     {
                         headers: {
                             Authorization: auth.access_token,
@@ -223,20 +223,20 @@ export default function ProductModal({
                   `Se ${myproduct ? "editó" : "creó"} correctamente el anuncio`,
                   "success"
                 )
-                setTimeout(() => {
-                  onClose()
-                }, 1500)
                 // TODO: hacer que la actualizacion de los post sea por disptach en auth
                 if (myproduct) {
                   dispatch({ type: "EDIT_PRODUCT", payload: data_product.post })
                 } else {
                   dispatch({ type: "ADD_PRODUCT", payload: data_product.post })
                 }
+                setTimeout(() => {
+                    onClose()
+                  }, 1500)
               }
 
-            setTimeout(() => {
-                onClose();
-            }, 1500);
+            // setTimeout(() => {
+            //     onClose();
+            // }, 1500);
 
             // ---------------------------------------------------------
         }
