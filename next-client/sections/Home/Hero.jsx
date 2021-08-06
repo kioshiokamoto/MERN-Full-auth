@@ -10,7 +10,7 @@ export default function Hero() {
             <Box className="generalWrapper flexCenterCustom" position="relative" w="1100" h="400">
                 <Image
                     className="imagePost"
-                    src="/slide1.png"
+                    src="/chica.png"
                     alt="Picture of the author"
                     layout="fill"
                     objectFit="cover"

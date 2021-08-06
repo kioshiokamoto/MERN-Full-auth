@@ -32,3 +32,15 @@ export default function MisCompras() {
     </div>
     )
 }
+
+// export const getServerSideProps = async context => {
+//   // const id = context.params.id
+//   const res = await fetch(`${process.env.API_BASE_URL}/buy/:usuario`)
+//   // @ts-ignore
+//   const data = await res.json()
+//   return {
+//     props: { products: data.posts }
+//   }
+// }
+
+

@@ -23,26 +23,26 @@ const reducers = (state, action) => {
         ...state,
         products: [...action.payload]
       }
-    case ACTIONS.ADD_POST:
+    case ACTIONS.ADD_PRODUCT:
       return {
         ...state,
-        posts: [action.payload, ...state.posts]
+        products: [action.payload, ...state.products]
       }
-    case ACTIONS.DELETE_POST:
+    case ACTIONS.DELETE_PRODUCT:
       return {
         ...state,
-        posts: state.posts.filter(post => {
-          return post.id !== action.payload
+        products: state.products.filter(product => {
+          return product._id !== action.payload
         })
       }
-    case ACTIONS.EDIT_POST:
+    case ACTIONS.EDIT_PRODUCT:
       return {
         ...state,
-        posts: state.posts.map(post => {
-          if (post.id === action.payload.id) {
+        products: state.products.map(product => {
+          if (product._id === action.payload._id) {
             return action.payload
           } else {
-            return post
+            return product
           }
         })
       }
@@ -59,13 +59,13 @@ const reducers = (state, action) => {
     case ACTIONS.DELETE_CART:
       return{
         ...state,
-        cart: state.cart.filter( item => item.id !== action.payload)
+        cart: state.cart.filter( item => item._id !== action.payload)
       }
     case ACTIONS.INCREASE_NUMBER_PRODUCT:
       return{
         ...state,
         cart: state.cart.map( item => {
-            if(item.id === action.payload.id){
+            if(item._id === action.payload._id){
                 item.cantidad +=1
             }
             return item
@@ -76,12 +76,22 @@ const reducers = (state, action) => {
       return{
         ...state,
         cart: state.cart.map( item => {
-            if(item.id === action.payload.id){
+            if(item._id === action.payload._id){
                 item.cantidad -=1
             }
             return item
           }
         )
+      }
+    case ACTIONS.CLEAN_CART:
+      return{
+        ...state,
+        cart: []
+      }
+    case ACTIONS.GET_ARTICLES:
+      return{
+        ...state,
+        articles: [...action.payload]
       }
     default:
       return state

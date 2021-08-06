@@ -31,7 +31,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     localStorage.removeItem("isLogged")
-    //await get("/api/user/logout")
+    await get("/user/logout")
     console.log("log out")
     dispatch({ type: "AUTH", payload: {} })
     return window.location.reload()
@@ -116,7 +116,7 @@ export default function Navbar() {
                   id="explorar"
                   >
                     
-                        <Link href="/mis-compras">
+                        <Link href="/mis-co-compras/[usuarioid]" as={`/mis-co-compras/${auth.user.id}`}>
                           <a>Mis compras</a>
                         </Link>
                   </li>)

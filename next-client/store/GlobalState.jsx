@@ -15,7 +15,7 @@ export const DataProvider = ({ children }) => {
         authType: "none",
         cart: [],
         products: [],
-        requests: [],
+        articles: [],
     };
     const [state, dispatch] = useReducer(reducers, initialState);
     const { authType, cart } = state;
@@ -40,7 +40,6 @@ export const DataProvider = ({ children }) => {
             if (isLogged) {
                 try {
                     const accessToken = await post("/user/refresh_token", {});
-                    console.log("accessToken: ", accessToken);
                     if (accessToken.data.msg === "Please login now") {
                        localStorage.removeItem("isLogged")
                        return showToast("Error con el token de acceso")
@@ -51,13 +50,12 @@ export const DataProvider = ({ children }) => {
                     if (user.data.msg === "Invalid authentication") {
                        return showToast("Error al recuperar datos del usuario")
                     }
-                    console.log('user: ',user)
                     dispatch({
                         type: "AUTH",
                         payload: {
                             access_token: accessToken.data.access_token,
                             user: {
-                                id: user.data.id,
+                                id: user.data._id,
                                 createdAt: user.data.createdAt,
                                 updatedAt: user.data.updatedAt,
                                 us_correo: user.data.email,
@@ -69,85 +67,32 @@ export const DataProvider = ({ children }) => {
                             },
                         },
                     });
-
                     if (typeLogged === "normal") {
                         dispatch({ type: "AUTH_TYPE", payload: "normal" });
                     }
+                    
                 } catch (err) {
                     console.log("error: ", err);
                 }
             }
         };
-        dispatch({
-            type: "GET_PRODUCTS",
-            payload: [
-                {
-                    id: 1,
-                    categoria: "Chompas",
-                    nombre: "Chompita negra",
-                    marca: "TOYOTA",
-                    precio: 12,
-                    imagen: "/slide1.png",
-                },
-                {
-                    id: 2,
-                    categoria: "Calzados",
-                    nombre: "Chompita negra",
-                    marca: "ABOBA",
-                    precio: 25,
-                    imagen: "/slide1.png",
-                },
-                {
-                    id: 3,
-                    categoria: "Cueros",
-                    nombre: "Chompita negra",
-                    marca: "ANOHANA",
-                    precio: 130,
-                    imagen: "/slide1.png",
-                },
-                {
-                    id: 4,
-                    categoria: "Camisas",
-                    nombre: "Chompita negra",
-                    marca: "ASTRALIS",
-                    precio: 158,
-                    imagen: "/slide1.png",
-                },
-                {
-                    id: 5,
-                    categoria: "Chompas",
-                    nombre: "Chompita negra",
-                    marca: "SNK",
-                    precio: 102,
-                    imagen: "/slide1.png",
-                },
-                {
-                    id: 6,
-                    categoria: "Calzados",
-                    nombre: "Chompita negra",
-                    marca: "NVIDIA",
-                    precio: 25,
-                    imagen: "/slide1.png",
-                },
-                {
-                    id: 7,
-                    categoria: "Cueros",
-                    nombre: "AK-47",
-                    marca: "CSGO",
-                    precio: 230,
-                    imagen: "/slide1.png",
-                },
-                {
-                    id: 8,
-                    categoria: "Camisas",
-                    nombre: "Chompita negra",
-                    marca: "FORNITE",
-                    precio: 18,
-                    imagen: "/slide1.png",
-                },
-            ],
-        });
+
+        const getProducts = async() => {
+            try{
+                const products = await get(`/post/all`)
+                dispatch({
+                    type: "GET_PRODUCTS",
+                    payload: products.data.posts
+                });
+
+                
+            }catch (err) {
+                console.log("error: ", err);
+            }
+        }
+        
         logging();
+        getProducts();
         dispatch({
             type: "AUTH_READY",
             payload: true,
