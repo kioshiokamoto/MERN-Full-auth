@@ -1,7 +1,8 @@
 // import { API_BASE_URL } from "../../config/app"
 // import parseError from "./parseError"
 // import { getKeyByPath } from "./tools"
-const baseUrl = "http://localhost:5001";
+
+const baseUrl = process.env.API_BASE_URL || "http://localhost:5000";
 
 export const headers = new Headers();
 headers.append("Content-Type", "application/json");
@@ -12,7 +13,6 @@ export function setAuth(token) {
     headers.append("Authorization", `${token}`);
     headers.append("Content-Type", "application/json");
 }
-
 
 const signals = new Map();
 

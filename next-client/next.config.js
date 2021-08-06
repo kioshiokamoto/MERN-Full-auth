@@ -1,14 +1,14 @@
 module.exports = {
     reactStrictMode: true,
-    async rewrites() {
-        return [
-            {
-                source: "/api/:path*",
-                destination: "http://localhost:5001/:path*", // Proxy to Backend
-            },
-        ];
-    },
+    // async rewrites() {
+    //     return [
+    //         {
+    //             source: "/api/:path*",
+    //             destination: "http://localhost:5000/:path*", // Proxy to Backend
+    //         },
+    //     ];
+    // },
     images: {
-        domains: ["res.cloudinary.com"]
-    }
+        domains: ["res.cloudinary.com"],
+    },
 };
