@@ -146,7 +146,7 @@ export default function ProductModal({
                     body: formData,
                 }
             );
-            const data = await res.json()
+            const data = await res.json();
             const body = {
                 image: data.url,
                 nombre: values.name.toLocaleLowerCase(),
@@ -155,26 +155,24 @@ export default function ProductModal({
                 precio: Number(values.price),
             };
             console.log("body post patch: ", body);
-            let resp
-              if (myproduct) {
-                resp = await patch(`/post/${myproduct.id}`, body)
-              } else {
-                  console.log('postando')
-                resp = await post("/post", body)
-                const respuesta = await fetch(
-                    `http://localhost:5001/post`,
-                    {
-                        headers: {
-                            Authorization: auth.access_token,
-                        },
-                        method: "POST",
-                        body: JSON.stringify(body),
-                    }
-                );
-                const data = await respuesta.json()
-                console.log('resp post patch http: ', data)
-                console.log('resp post patch fecth: ', resp)
-              }
+            let resp;
+            if (myproduct) {
+                resp = await patch(`/post/${myproduct.id}`, body);
+            } else {
+                console.log("postando");
+                resp = await post("/post", body);
+                const respuesta = await fetch(`http://localhost:5001/post`, {
+                    headers: {
+                        Authorization: auth.access_token,
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                    body: JSON.stringify(body),
+                });
+                const data = await respuesta.json();
+                console.log("resp post patch http: ", data);
+                console.log("resp post patch fecth: ", resp);
+            }
             setIsPosting(false);
             //   if (res.data?.error) {
             //     return showToast(
