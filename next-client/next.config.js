@@ -1,5 +1,9 @@
 module.exports = {
     reactStrictMode: true,
+    images: {
+        domains: ["res.cloudinary.com", "via.placeholder.com"],
+    },
+
     // async rewrites() {
     //     return [
     //         {
@@ -8,7 +12,4 @@ module.exports = {
     //         },
     //     ];
     // },
-    images: {
-        domains: ["res.cloudinary.com"],
-    },
 };

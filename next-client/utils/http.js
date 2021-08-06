@@ -2,7 +2,7 @@
 // import parseError from "./parseError"
 // import { getKeyByPath } from "./tools"
 
-const baseUrl = process.env.API_BASE_URL || "http://localhost:5000";
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
 
 export const headers = new Headers();
 headers.append("Content-Type", "application/json");
