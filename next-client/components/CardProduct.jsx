@@ -56,8 +56,16 @@ export default function CardProduct({ product, role="user" }) {
     const handleDeleteProduct = async(result) => {
         if(result=== true){
             console.log('eliminado')
-            setAuth(auth.access_token)
-            const res = await del(`/post/${product._id}`)
+            // setAuth(auth.access_token)
+            //const res = await del(`/post/${product._id}`)
+            const resp = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/post/${product._id}`,{
+                headers: {
+                    Authorization: auth.access_token,
+                    "Content-Type": "application/json",
+                },
+                method: "DELETE",
+            })
+            const res = await resp.json()
             dispatch({ type: "DELETE_PRODUCT", payload: product._id })
             setOpenDeleteDialog(false)
             console.log("delete: ", res)
