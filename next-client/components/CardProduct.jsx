@@ -19,7 +19,6 @@ export default function CardProduct({ product, role="user" }) {
     const { state, dispatch } = useContext(DataContext)
     const { auth, cart } = state
 
-
     const handleClick = () => {
         console.log('click')
         setOpenDialog(true)
@@ -155,7 +154,11 @@ export default function CardProduct({ product, role="user" }) {
 
             {
                 openDeleteDialog && (
-                    <Dialog title="Eliminar producto" icon="trash" color="danger" content={<>¿Está seguro que desea eliminar el producto <b>{product?.nombre}?</b></>} accept="Sí, eliminar" callbackFunction={handleDeleteProduct}/>
+                    <Dialog 
+                    title="Eliminar producto" 
+                    icon="trash" 
+                    color="danger" 
+                    content={<>¿Está seguro que desea eliminar el producto <b>{product?.nombre}?</b></>} accept="Sí, eliminar" callbackFunction={handleDeleteProduct}/>
                 )
             }
         </Box>
