@@ -52,7 +52,6 @@ export default function Activar() {
     .catch(respError => console.log("respError: ", respError))
   }, [router])
 
-  fetch
   return (
     <>
       <ActiveAccount router={router} />
