@@ -33,7 +33,7 @@ export default function CardProduct({ product, role="user" }) {
             }
             console.log('agregado')
             const check = cart.every(item => {
-                return item.id !== product.id
+                return item._id !== product._id
             })
             console.log('mostro el toast')
             if(!check) {

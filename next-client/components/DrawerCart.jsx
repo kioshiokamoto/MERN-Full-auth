@@ -18,26 +18,62 @@ import {
   } from "@chakra-ui/react"
 import {useContext, useEffect, useRef, useState} from 'react'
 import { DataContext } from "../store/GlobalState"
+import { post } from "../utils/http"
 import BuyModal from "./BuyModal"
 import ZIcon from './Icon'
 import ItemCart from "./ItemCart"
+import showToast from "./Toast"
 export default function DrawerCart({icon}) {
 
   const [openBuyModal, setOpenBuyModal] = useState(false)
   const [total, setTotal] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
-  const { state } = useContext(DataContext)
-  const { cart } = state
+  const { state, dispatch } = useContext(DataContext)
+  const {auth, cart } = state
   const handleBuy = () =>{
     setOpenBuyModal(true)
   }
 
-  const handlePay = (result)=>{
+  const handlePay = async(result)=>{
     if(result === true){
       console.log('comprado')
+      console.log('auth: ', auth)
+      console.log('bus cart: ',{
+        usuario: auth.user.id,
+        products:cart
+      })
+      const cartBody = cart.map(item=>{
+        return {
+          producto: item._id,
+          cantidad: item.cantidad,
+          precio: item.precio
+        }
+      })
+      // const res = await post('/shopping/buy',{
+      //   usuario: auth.user.id,
+      //   productos:cartBody
+      // })
+
+      const resp = await fetch(`http://localhost:5001/shopping/buy`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                      usuario: auth.user.id,
+                      productos:cartBody
+                    }),
+                });
+      const data = await resp.json()
+      console.log('res shopppin: ',data)
+      if(data.msg==='Se registra compras'){
+        setOpenBuyModal(false)
+        dispatch({type:'CLEAN_CART'})
+        showToast("Exito en la compra","La compra se realizo con exito", "success")
+      }
     }else if(result === false){
-    setOpenBuyModal(false)
+      setOpenBuyModal(false)
     }
   }
 
@@ -77,7 +113,7 @@ export default function DrawerCart({icon}) {
         placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
-        size="md">
+        size="lg">
           <DrawerOverlay/>
           <DrawerContent >
             <DrawerCloseButton _focus={{outline:'none'}}/>

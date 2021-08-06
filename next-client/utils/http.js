@@ -8,7 +8,6 @@ headers.append("Content-Type", "application/json");
 headers.append("Accept", "application/json");
 
 export function setAuth(token) {
-    console.log('seteando cabecera')
     headers.delete("Authorization");
     headers.append("Authorization", `${token}`);
     headers.append("Content-Type", "application/json");
@@ -32,11 +31,9 @@ async function http(path, method, body) {
             headers,
         };
     }
-    console.log('httpInit: ',httpInit.headers.values())
     const controller = new AbortController();
     signals.set(path, controller);
     try {
-        console.log('body en http ', body)
         const response = await fetch(`${baseUrl}${path}`, {
             ...httpInit,
             method,

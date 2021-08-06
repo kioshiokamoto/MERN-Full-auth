@@ -18,13 +18,13 @@ export default function ItemCart({productCart}) {
     }
 
     const handleDeleteItem = () =>{
-       dispatch({type:'DELETE_CART', payload: productCart.id})
+       dispatch({type:'DELETE_CART', payload: productCart._id})
     }
 
     return (
         <Flex border="solid 1px #cccccc" borderRadius="xl" p="5" my="2" align="center" justify="space-between">
-            <Image src={productCart.imagen} alt="Picture" height="80" width="80" />
-            <Box>
+            <Image src={productCart.image} alt="Picture" height="80" width="80" />
+            <Box w="72">
                 <Text fontSize="sm" color="letter">{productCart.nombre}</Text>
                 <Text fontSize="sm" color="letter">Marca: {productCart.marca}</Text>
                 <Text fontSize="lg" color="primary">S/. {productCart.precio}</Text>

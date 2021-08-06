@@ -55,6 +55,7 @@ const shoppingCarCtrl = {
   },
   buyArticles: async (req, res) => {
     try {
+      console.log('body: ',req.body)
       const { usuario, productos } = req.body;
 
       let checkUser = await Shop.findOne({ usuario });
