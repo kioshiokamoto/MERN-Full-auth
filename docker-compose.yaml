@@ -1,52 +1,70 @@
 version: "3"
 services:
-    client:
-        container_name: frontend
-        restart: always
-        build: ./next-client
-        ports:
-            - "80:3000"
-        environment:
-            - API_BASE_URL=http://localhost:5000
-            - NEXT_PUBLIC_API_BASE_URL=http://localhost:5000
-        links:
-            - lb
-    app_1:
-        container_name: proj_node_1
-        restart: always
-        build: ./server
-        env_file: ./.env
-        environment:
-            - PORT=5001
-        links:
-            - mongo
-    app_2:
-        container_name: proj_node_2
-        restart: always
-        build: ./server
-        env_file: ./.env
-        environment:
-            - PORT=5002
-        links:
-            - mongo
-    app_3:
-        container_name: proj_node_3
-        restart: always
-        build: ./server
-        env_file: ./.env
-        environment:
-            - PORT=5003
-        links:
-            - mongo
-    lb:
-        image: haproxy
-        container_name: load_balancer
-        ports:
-            - "5000:5000"
-        volumes:
-            - ./haproxy:/usr/local/etc/haproxy
     mongo:
         container_name: mongo
-        image: mongo
+        image: mongo:5.0.2
+        # mem_limit: 256m
+        # mem_reservation: 128M
+        # cpus: 0.4
         ports:
-            - "27018:27017"
+            - "27017:27017"
+
+    # app_1:
+    #     image: kioshiokamoto/backend-nodejs-demo:3.0
+    #     container_name: proj-node-1
+    #     restart: always
+    #     # mem_limit: 200m
+    #     # mem_reservation: 128M
+    #     # cpus: 0.25
+    #     env_file: ./.env
+    #     environment:
+    #         - PORT=5001
+    #     # links:
+    #     #     - mongo
+    # app_2:
+    #     image: kioshiokamoto/backend-nodejs-demo:3.0
+    #     container_name: proj-node-2
+    #     restart: always
+    #     # mem_limit: 200m
+    #     # mem_reservation: 128M
+    #     # cpus: 0.25
+    #     env_file: ./.env
+    #     environment:
+    #         - PORT=5002
+    #     # links:
+    #     #     - mongo
+    # app_3:
+    #     image: kioshiokamoto/backend-nodejs-demo:3.0
+    #     container_name: proj-node-3
+    #     restart: always
+    #     # mem_limit: 200m
+    #     # mem_reservation: 128M
+    #     # cpus: 0.25
+    #     env_file: ./.env
+    #     environment:
+    #         - PORT=5003
+    #     # links:
+    #     #     - mongo
+    # lb:
+    #     image: kioshiokamoto/haproxy:2.0
+    #     container_name: load-balancer
+    #     restart: always
+    #     # mem_limit: 200m
+    #     # mem_reservation: 128M
+    #     # cpus: 0.5
+    #     ports:
+    #         - "5000:5000"
+    # client:
+    #     image: kioshiokamoto/frontend-next-demo:2.0
+    #     container_name: frontend
+    #     restart: always
+    #     # mem_limit: 500m
+    #     # mem_reservation: 128M
+    #     # cpus: 0.7
+    #     ports:
+    #         - "3000:3000"
+    #     environment:
+    #         - API_BASE_URL=http://localhost:5000
+    #         - NEXT_PUBLIC_API_BASE_URL=http://localhost:5000
+    #     # links:
+    #     #     - lb

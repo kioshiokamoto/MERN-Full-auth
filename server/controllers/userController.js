@@ -58,6 +58,32 @@ const userCtrl = {
             return res.status(500).json({ err: error.message });
         }
     },
+    createAdmin: async (req, res) => {
+        try {
+            const { name, email, password } = req.body;
+
+            const check = await Users.findOne({ email });
+            if (check) {
+                return res
+                    .status(400)
+                    .json({ msg: "This email already exists" });
+            }
+
+            const passwordHash = await bcrypt.hash(password, 12);
+            const newUser = new Users({
+                name,
+                email,
+                password: passwordHash,
+                role: 1,
+            });
+
+            await newUser.save();
+
+            res.json({ msg: "Administrador creado" });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
     activateEmail: async (req, res) => {
         try {
             const { activation_token } = req.body;
