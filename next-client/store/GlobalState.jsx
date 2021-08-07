@@ -51,7 +51,6 @@ export const DataProvider = ({ children }) => {
                     })
                     const dataAccess = await respaccessToken.json()
                     const accessToken = {error:null, data:dataAccess}
-                    console.log('accestoken: ',accessToken)
                     if (accessToken.data.msg === "Please login now") {
                        localStorage.removeItem("isLogged")
                        return showToast("Error con el token de acceso")

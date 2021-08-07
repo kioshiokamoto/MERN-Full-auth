@@ -22,7 +22,6 @@ export default function CardProduct({ product, role="user" }) {
 
 
     const handleClick = () => {
-        console.log('click')
         setOpenDialog(true)
     }
     const handleAddCart = (result)=>{
@@ -31,11 +30,9 @@ export default function CardProduct({ product, role="user" }) {
                 setOpenDialog(false)
                 return (showToast("Problemas con el producto","Necesita iniciar sesion","error")) 
             }
-            console.log('agregado')
             const check = cart.every(item => {
                 return item._id !== product._id
             })
-            console.log('mostro el toast')
             if(!check) {
                 setOpenDialog(false)
                 return (showToast("Cuidado","Elemento ya se encuentra en el carrrito","info")) 
@@ -49,18 +46,23 @@ export default function CardProduct({ product, role="user" }) {
     }
 
     const handleDelete =()=> {
-        console.log('click')
         setOpenDeleteDialog(true)
     }
 
     const handleDeleteProduct = async(result) => {
         if(result=== true){
-            console.log('eliminado')
-            setAuth(auth.access_token)
-            const res = await del(`/post/${product._id}`)
+            // setAuth(auth.access_token)
+            //const res = await del(`/post/${product._id}`)
+            const resp = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/post/${product._id}`,{
+                headers: {
+                    Authorization: auth.access_token,
+                    "Content-Type": "application/json",
+                },
+                method: "DELETE",
+            })
+            const res = await resp.json()
             dispatch({ type: "DELETE_PRODUCT", payload: product._id })
             setOpenDeleteDialog(false)
-            console.log("delete: ", res)
         }else if(result===false){
             setOpenDeleteDialog(false)
         }

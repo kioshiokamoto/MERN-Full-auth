@@ -15,7 +15,6 @@ SwiperCore.use([Autoplay, Navigation])
 export default function MangnamentProduct() {
     const { state } = useContext(DataContext)
     const { auth, products } = state
-    console.log('products list: ',products)
     // const { auth, products } = state
     return (
         <Box bg="primary">

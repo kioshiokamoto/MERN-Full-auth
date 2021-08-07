@@ -14,7 +14,6 @@ export default function ItemCart({productCart}) {
     const handleDecrementCustom= () =>{ 
         setCantidad(cantidad - 1)
         dispatch({type:'DECREASE_NUMBER_PRODUCT', payload: productCart})
-        console.log(cantidad)
     }
 
     const handleDeleteItem = () =>{
