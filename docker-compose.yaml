@@ -1,21 +1,12 @@
 version: "3"
-
 services:
-    mongo:
-        container_name: mongo
-        image: mongo:5.0.2
-        # mem_limit: 256m
-        # mem_reservation: 128M
-        # cpus: 0.4
-        ports:
-            - "27017:27017"
-    app_1:
-        image: kioshiokamoto/backend-nodejs-demo:3.0
+    app-1:
+        image: kioshiokamoto/backend-nodejs-demo:5.0
         container_name: proj-node-1
         restart: always
-        # mem_limit: 200m
-        # mem_reservation: 128M
-        # cpus: 0.25
+        mem_limit: 200m
+        mem_reservation: 128M
+        cpus: 0.25
         env_file:
             - ./.env
         environment:
@@ -34,15 +25,17 @@ services:
             - CLOUD_API_SECRET=$CLOUD_API_SECRET
             - GOOGLE_SECRET=$GOOGLE_SECRET
             - FACEBOOK_SECRET=$FACEBOOK_SECRET
+        ports:
+            - "5001:5001"
         # links:
         #     - mongo
-    app_2:
-        image: kioshiokamoto/backend-nodejs-demo:3.0
+    app-2:
+        image: kioshiokamoto/backend-nodejs-demo:5.0
         container_name: proj-node-2
         restart: always
-        # mem_limit: 200m
-        # mem_reservation: 128M
-        # cpus: 0.25
+        mem_limit: 200m
+        mem_reservation: 128M
+        cpus: 0.25
         env_file: ./.env
         environment:
             - PORT=5002
@@ -60,15 +53,17 @@ services:
             - CLOUD_API_SECRET=$CLOUD_API_SECRET
             - GOOGLE_SECRET=$GOOGLE_SECRET
             - FACEBOOK_SECRET=$FACEBOOK_SECRET
+        ports:
+            - "5002:5002"
         # links:
         #     - mongo
-    app_3:
-        image: kioshiokamoto/backend-nodejs-demo:3.0
+    app-3:
+        image: kioshiokamoto/backend-nodejs-demo:5.0
         container_name: proj-node-3
         restart: always
-        # mem_limit: 200m
-        # mem_reservation: 128M
-        # cpus: 0.25
+        mem_limit: 200m
+        mem_reservation: 128M
+        cpus: 0.25
         env_file: ./.env
         environment:
             - PORT=5003
@@ -86,28 +81,5 @@ services:
             - CLOUD_API_SECRET=$CLOUD_API_SECRET
             - GOOGLE_SECRET=$GOOGLE_SECRET
             - FACEBOOK_SECRET=$FACEBOOK_SECRET
-        # links:
-        #     - mongo
-    lb:
-        image: kioshiokamoto/haproxy:2.0
-        container_name: load-balancer
-        restart: always
-        # mem_limit: 200m
-        # mem_reservation: 128M
-        # cpus: 0.5
         ports:
-            - "5000:5000"
-    client:
-        image: kioshiokamoto/frontend-next-demo:2.0
-        container_name: frontend
-        restart: always
-        # mem_limit: 500m
-        # mem_reservation: 128M
-        # cpus: 0.7
-        ports:
-            - "3000:3000"
-        environment:
-            API_BASE_URL: $API_BASE_URL
-            NEXT_PUBLIC_API_BASE_URL: $NEXT_PUBLIC_API_BASE_URL
-        # links:
-        #     - lb
+            - "5003:5003"
