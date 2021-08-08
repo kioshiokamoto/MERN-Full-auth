@@ -1,6 +1,7 @@
 version: "3"
 services:
     app-1:
+        #Cambiar por imagen build de server
         image: kioshiokamoto/backend-nodejs-demo:5.0
         container_name: proj-node-1
         restart: always
