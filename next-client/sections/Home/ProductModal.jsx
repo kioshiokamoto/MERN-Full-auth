@@ -48,10 +48,10 @@ export default function ProductModal({
     icon = false,
     myproduct,
 }) {
-    const categoriaId = (categoria)=>{
+    const categoriaId = (categoria) => {
         switch (categoria) {
             case "Casacas":
-                return 1
+                return 1;
             case "Chompas":
                 return 2;
             case "Polos":
@@ -63,10 +63,10 @@ export default function ProductModal({
             case "Accesorio":
                 return 6;
         }
-    }
-    let idCategory 
-    if(myproduct){
-        idCategory = categoriaId(myproduct.categoria)
+    };
+    let idCategory;
+    if (myproduct) {
+        idCategory = categoriaId(myproduct.categoria);
     }
     let initialState;
     if (myproduct) {
@@ -74,7 +74,7 @@ export default function ProductModal({
             values: {
                 name: myproduct.nombre,
                 brand: myproduct.marca,
-                price: myproduct.precio.toString(),
+                price: myproduct?.precio?.toString() || "",
             },
             category: {
                 value: idCategory,
@@ -151,14 +151,12 @@ export default function ProductModal({
             //   if (imgNewURL.length > 0) media = await imageUpload(imgNewURL)
             //   const imagesPost = [...imgOldUrlParse, ...media]
             // -------------------------------------------------------------
-            let url
-            console.log('imagesFile: ',imagesFile)
-            console.log('imagesFile.size: ', imagesFile[0].size)
-            if(imagesFile[0].size){
+            let url;
+            if (imagesFile[0].size) {
                 let formData = new FormData();
                 formData.append("file", imagesFile[0]);
                 const res = await fetch(
-                    `http://localhost:5001/api/upload_post_image`,
+                    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/upload_post_image`,
                     {
                         headers: {
                             Authorization: auth.access_token,
@@ -168,11 +166,11 @@ export default function ProductModal({
                     }
                 );
                 const data = await res.json();
-                url = data.url
-            }else{
-                url= imagesFile[0]
+                url = data.url;
+            } else {
+                url = imagesFile[0];
             }
-            
+
             const body = {
                 image: url,
                 nombre: values.name.toLocaleLowerCase(),
@@ -180,63 +178,76 @@ export default function ProductModal({
                 marca: values.brand,
                 precio: Number(values.price),
             };
-            console.log("body post patch: ", body);
             setAuth(auth.access_token);
             let resp;
             if (myproduct) {
                 //resp = await patch(`/post/${myproduct.id}`, body);
-                resp = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/post/${myproduct._id}`, {
-                    headers: {
-                        Authorization: auth.access_token,
-                        "Content-Type": "application/json",
-                    },
-                    method: "PATCH",
-                    body: JSON.stringify(body),
-                });
-                console.log("EDITANDO");
+                resp = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_BASE_URL}/post/${myproduct._id}`,
+                    {
+                        headers: {
+                            Authorization: auth.access_token,
+                            "Content-Type": "application/json",
+                        },
+                        method: "PATCH",
+                        body: JSON.stringify(body),
+                    }
+                );
+    
             } else {
                 //resp = await post("/post", body);
-                resp = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/post`, {
-                    headers: {
-                        Authorization: auth.access_token,
-                        "Content-Type": "application/json",
-                    },
-                    method: "POST",
-                    body: JSON.stringify(body),
-                });
-                console.log("postando");
-               
+                resp = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_BASE_URL}/post`,
+                    {
+                        headers: {
+                            Authorization: auth.access_token,
+                            "Content-Type": "application/json",
+                        },
+                        method: "POST",
+                        body: JSON.stringify(body),
+                    }
+                );
+  
+
                 //console.log("resp post patch fecth: ", resp);
             }
             const data_product = await resp.json();
-            console.log('data_product: ', data_product, 'asda, ', data_product.msg!=='Se actualizo post correctamente');
             setIsPosting(false);
-              if (data_product.msg!=='Post creado correctamente' && data_product.msg!=='Se actualizo post correctamente') {
+            if (
+                data_product.msg !== "Post creado correctamente" &&
+                data_product.msg !== "Se actualizo post correctamente"
+            ) {
                 return showToast(
-                  `Error al ${myproduct ? "editar" : "publicar"} el servicio`,
-                  'Error con el contenido del producto',
-                  "error"
-                )
-              } else {
+                    `Error al ${myproduct ? "editar" : "publicar"} el servicio`,
+                    "Error con el contenido del producto",
+                    "error"
+                );
+            } else {
                 showToast(
                   `${myproduct ? "Edición" : "Creación"} exitosa`,
                   `Se ${myproduct ? "editó" : "creó"} correctamente el anuncio`,
                   "success"
                 )
-                setTimeout(() => {
-                  onClose()
-                }, 1500)
                 // TODO: hacer que la actualizacion de los post sea por disptach en auth
                 if (myproduct) {
-                  dispatch({ type: "EDIT_PRODUCT", payload: data_product.post })
+                    dispatch({
+                        type: "EDIT_PRODUCT",
+                        payload: data_product.post,
+                    });
                 } else {
-                  dispatch({ type: "ADD_PRODUCT", payload: data_product.post })
+                    dispatch({
+                        type: "ADD_PRODUCT",
+                        payload: data_product.post,
+                    });
                 }
+                setTimeout(() => {
+                    onClose()
+                  }, 1500)
               }
 
-            setTimeout(() => {
-                onClose();
-            }, 1500);
+            // setTimeout(() => {
+            //     onClose();
+            // }, 1500);
 
             // ---------------------------------------------------------
         }

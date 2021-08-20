@@ -1,49 +1,86 @@
 version: "3"
 services:
-  client:
-    container_name: frontend
-    restart: always
-    build: ./next-client
-    ports:
-      - "80:3000"
-    links:
-      - lb
-  app_1:
-    container_name: proj_node_1
-    restart: always
-    build: ./server
-    env_file: ./.env
-    environment:
-      - PORT=5001
-    links:
-      - mongo
-  app_2:
-    container_name: proj_node_2
-    restart: always
-    build: ./server
-    env_file: ./.env
-    environment:
-      - PORT=5002
-    links:
-      - mongo
-  app_3:
-    container_name: proj_node_3
-    restart: always
-    build: ./server
-    env_file: ./.env
-    environment:
-      - PORT=5003
-    links:
-      - mongo
-  lb:
-    image: haproxy
-    container_name: load_balancer
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./haproxy:/usr/local/etc/haproxy
-  mongo:
-    container_name: mongo
-    image: mongo
-    ports:
-      - "27019:27017"
+    app-1:
+        #Cambiar por imagen build de server
+        image: kioshiokamoto/backend-nodejs-demo:5.0
+        container_name: proj-node-1
+        restart: always
+        mem_limit: 200m
+        mem_reservation: 128M
+        cpus: 0.25
+        env_file:
+            - ./.env
+        environment:
+            - PORT=5001
+            - MONGODB_URL=$MONGODB_URL
+            - ACTIVATION_TOKEN_SECRET=$ACTIVATION_TOKEN_SECRET
+            - ACCESS_TOKEN_SECRET=$ACCESS_TOKEN_SECRET
+            - REFRESH_TOKEN_SECRET=$REFRESH_TOKEN_SECRET
+            - CLIENT_URL=$CLIENT_URL
+            - MAILING_SERVICE_CLIENT_ID=$MAILING_SERVICE_CLIENT_ID
+            - MAILING_SERVICE_CLIENT_SECRET=$MAILING_SERVICE_CLIENT_SECRET
+            - MAILING_SERVICE_REFRESH_TOKEN=$MAILING_SERVICE_REFRESH_TOKEN
+            - SENDER_EMAIL_ADDRESS=$SENDER_EMAIL_ADDRESS
+            - CLOUD_NAME=$CLOUD_NAME
+            - CLOUD_API_KEY=$CLOUD_API_KEY
+            - CLOUD_API_SECRET=$CLOUD_API_SECRET
+            - GOOGLE_SECRET=$GOOGLE_SECRET
+            - FACEBOOK_SECRET=$FACEBOOK_SECRET
+        ports:
+            - "5001:5001"
+        # links:
+        #     - mongo
+    app-2:
+        image: kioshiokamoto/backend-nodejs-demo:5.0
+        container_name: proj-node-2
+        restart: always
+        mem_limit: 200m
+        mem_reservation: 128M
+        cpus: 0.25
+        env_file: ./.env
+        environment:
+            - PORT=5002
+            - MONGODB_URL=$MONGODB_URL
+            - ACTIVATION_TOKEN_SECRET=$ACTIVATION_TOKEN_SECRET
+            - ACCESS_TOKEN_SECRET=$ACCESS_TOKEN_SECRET
+            - REFRESH_TOKEN_SECRET=$REFRESH_TOKEN_SECRET
+            - CLIENT_URL=$CLIENT_URL
+            - MAILING_SERVICE_CLIENT_ID=$MAILING_SERVICE_CLIENT_ID
+            - MAILING_SERVICE_CLIENT_SECRET=$MAILING_SERVICE_CLIENT_SECRET
+            - MAILING_SERVICE_REFRESH_TOKEN=$MAILING_SERVICE_REFRESH_TOKEN
+            - SENDER_EMAIL_ADDRESS=$SENDER_EMAIL_ADDRESS
+            - CLOUD_NAME=$CLOUD_NAME
+            - CLOUD_API_KEY=$CLOUD_API_KEY
+            - CLOUD_API_SECRET=$CLOUD_API_SECRET
+            - GOOGLE_SECRET=$GOOGLE_SECRET
+            - FACEBOOK_SECRET=$FACEBOOK_SECRET
+        ports:
+            - "5002:5002"
+        # links:
+        #     - mongo
+    app-3:
+        image: kioshiokamoto/backend-nodejs-demo:5.0
+        container_name: proj-node-3
+        restart: always
+        mem_limit: 200m
+        mem_reservation: 128M
+        cpus: 0.25
+        env_file: ./.env
+        environment:
+            - PORT=5003
+            - MONGODB_URL=$MONGODB_URL
+            - ACTIVATION_TOKEN_SECRET=$ACTIVATION_TOKEN_SECRET
+            - ACCESS_TOKEN_SECRET=$ACCESS_TOKEN_SECRET
+            - REFRESH_TOKEN_SECRET=$REFRESH_TOKEN_SECRET
+            - CLIENT_URL=$CLIENT_URL
+            - MAILING_SERVICE_CLIENT_ID=$MAILING_SERVICE_CLIENT_ID
+            - MAILING_SERVICE_CLIENT_SECRET=$MAILING_SERVICE_CLIENT_SECRET
+            - MAILING_SERVICE_REFRESH_TOKEN=$MAILING_SERVICE_REFRESH_TOKEN
+            - SENDER_EMAIL_ADDRESS=$SENDER_EMAIL_ADDRESS
+            - CLOUD_NAME=$CLOUD_NAME
+            - CLOUD_API_KEY=$CLOUD_API_KEY
+            - CLOUD_API_SECRET=$CLOUD_API_SECRET
+            - GOOGLE_SECRET=$GOOGLE_SECRET
+            - FACEBOOK_SECRET=$FACEBOOK_SECRET
+        ports:
+            - "5003:5003"

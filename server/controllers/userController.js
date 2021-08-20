@@ -15,7 +15,7 @@ const userCtrl = {
     register: async (req, res) => {
         try {
             const { name, email, password } = req.body;
-
+            console.log("Body de registro: " + name, email, password);
             if (!name || !email || !password) {
                 return res
                     .status(400)
@@ -56,6 +56,32 @@ const userCtrl = {
             });
         } catch (error) {
             return res.status(500).json({ err: error.message });
+        }
+    },
+    createAdmin: async (req, res) => {
+        try {
+            const { name, email, password } = req.body;
+
+            const check = await Users.findOne({ email });
+            if (check) {
+                return res
+                    .status(400)
+                    .json({ msg: "This email already exists" });
+            }
+
+            const passwordHash = await bcrypt.hash(password, 12);
+            const newUser = new Users({
+                name,
+                email,
+                password: passwordHash,
+                role: 1,
+            });
+
+            await newUser.save();
+
+            res.json({ msg: "Administrador creado" });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
         }
     },
     activateEmail: async (req, res) => {
@@ -112,7 +138,7 @@ const userCtrl = {
                 httpOnly: true,
                 path: "/user/refresh_token",
                 maxAge: 7 * 24 * 60 * 60 * 1000,
-                secure: true,
+                // secure: true,
             });
             console.log('RF: ',refresh_token);
             res.json({ msg: "Login success!" });

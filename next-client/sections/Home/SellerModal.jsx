@@ -65,7 +65,6 @@ export default function SellerModal({
     //     us_apellido: values?.lastName,
     //     password: values.password
     //   })
-    console.log(values)
       setIsPosting(false)
 
       // if (resp.data.response?.error) {

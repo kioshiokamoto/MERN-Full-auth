@@ -5,6 +5,8 @@ const authAdmin = require("../middlewares/authAdmin");
 
 router.post("/register", userCtrl.register);
 
+router.post("/createAdmin", userCtrl.createAdmin);
+
 router.post("/activation", userCtrl.activateEmail);
 
 router.post("/login", userCtrl.login);

@@ -31,8 +31,8 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     localStorage.removeItem("isLogged")
-    await get("/user/logout")
-    console.log("log out")
+    //await get("/user/logout")
+    await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/logout`)
     dispatch({ type: "AUTH", payload: {} })
     return window.location.reload()
   }

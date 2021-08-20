@@ -27,7 +27,7 @@ export default function MangnamentProduct() {
                   products.length <=4 && products.length > 0 && (<Grid templateColumns="repeat(4,1fr)">
                     {
                       products?.map( product => (
-                          <CardProduct key={product.id} product={product} role={auth.user?.role}/>
+                          <CardProduct key={product._id} product={product} role={auth.user?.role}/>
                       ))
                     }
                   </Grid>)

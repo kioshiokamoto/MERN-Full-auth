@@ -6,24 +6,25 @@ Aplicacion con autenticacion, inicio de sesion, registro, verificacion de correo
 
 ## Tech Stack
 
-**Client:** Reactjs, redux, axios, google api, facebook api.
+**Client:** Nextjs, CharkaUI, redux, axios, google api, facebook api.
 
 **Server:** Nodejs, express, cloudinary, jsonwebtoken, mongoose, nodemailer, bcrypt, googleapis
 
+**Despliegue:** Docker
+
 ## Features
 
-- Registro/Iniciar sesion
+-   Registro/Iniciar sesion
 
-- Inicio de sesion con google
+-   Inicio de sesion con google
 
-- Inicio de sesion con facebook
+-   Inicio de sesion con facebook
 
-- CRUD app
+-   CRUD app
 
 ## Screenshots
 
-![Preview 1](https://github.com/kioshiokamoto/MERN-Full-auth/blob/main/preview/1.png?raw=true)
-![Preview 2](https://github.com/kioshiokamoto/MERN-Full-auth/blob/main/preview/2.png?raw=true)
+![Preview 1](https://github.com/kioshiokamoto/MERN-Full-auth/blob/main/preview/1.JPG?raw=true)
 
 ## Ejecutar localmente
 
@@ -42,8 +43,10 @@ Ir a ruta de proyecto
 Instalar dependencias
 
 ```bash
-  npm install && cd client && npm install
+  npm install && cd next-client && npm install
 ```
+
+-   Agregar variables de entorno
 
 Iniciar servidor
 
@@ -54,7 +57,7 @@ Iniciar servidor
 Iniciar cliente
 
 ```bash
-  cd client && npm start
+  cd client && npm run dev
 ```
 
 ### Referencia de proyecto:

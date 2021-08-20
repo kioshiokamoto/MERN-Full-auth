@@ -134,7 +134,6 @@ export default function FileUpload({
       if (validImage) {
         return item
       }
-      // console.log("gaaa: ", item)
     })
 
     if (!notSupport) {

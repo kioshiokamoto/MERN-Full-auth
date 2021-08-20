@@ -17,7 +17,13 @@ const corsOptions = {
     credentials: true,
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
     //Actualizar cliente
-    origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+    origin: [
+        "http://127.0.0.1:3000",
+        "http://localhost:3000",
+        "http://localhost:5000",
+        "http://20.88.212.66:3000",
+        "http://20.88.212.66:5000",
+    ],
     preflightContinue: false,
 };
 
