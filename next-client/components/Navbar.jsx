@@ -93,7 +93,7 @@ export default function Navbar() {
         <div>
           <Link href="/">
             <a>
-              <ZIcon name="logo" />
+              <ZIcon name="logo2" size="30" />
             </a>
           </Link>
         </div>

@@ -27,7 +27,7 @@
  }
  
  .navbarWrapper ul li.active{
-     color:var(--primary);
+     color:var(--letter);
      font-weight: 500;
  }
  .navbarWrapper ul:nth-child(2){

@@ -11,7 +11,7 @@ export default function Requests() {
     return (
         <Box bg="primary">
             <Box className="generalWrapper" >
-                <Text fontSize="2xl" textAlign="center" color="letter" fontWeight="medium" pt="16" pb="8">Mis solicitudes</Text>
+                <Text fontSize="2xl" textAlign="center" color="letter" fontWeight="medium" pt="16" pb="8">Mis pedidos</Text>
                 <Swiper
                   slidesPerView={4}
                   spaceBetween={-5}

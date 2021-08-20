@@ -385,23 +385,23 @@ export default function ProductModal({
                                     >
                                         {[
                                             {
-                                                label: "Casacas",
+                                                label: "COVID 19",
                                                 value: 1,
                                             },
                                             {
-                                                label: "Chompas",
+                                                label: "Analgésico",
                                                 value: 2,
                                             },
                                             {
-                                                label: "Polos",
+                                                label: "Antipirético",
                                                 value: 3,
                                             },
                                             {
-                                                label: "Jeans",
+                                                label: "Higiene",
                                                 value: 4,
                                             },
                                             {
-                                                label: "Calzado",
+                                                label: "Cosmetica",
                                                 value: 5,
                                             },
                                             {
