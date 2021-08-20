@@ -24,7 +24,7 @@ export default function Hero() {
                 <Box position="absolute" top="20" right="20">
                     <Flex direction="column" w="80" p="2" >
                         <Text color="letter" fontSize="5xl" letterSpacing="widest" fontWeight="medium">ESMEDI</Text>
-                        <Text color="letter" fontSize="lg" fontWeight="medium">Encuentra los mejores precios en tu farmacia condiable</Text>
+                        <Text color="letter" fontSize="lg" fontWeight="medium">Encuentra los mejores precios en tu farmacia confiable</Text>
                         {/* <Button variant="primary" color="letter" fontWeight="normal" my="4">Solicitar ser vendedor <ZIcon name="wp" color="icon" className="mx2"/></Button> */}
                         {/* <SellerModal showModalButtonText="Solicitar ser vendedor" variant="primary" color="letter" fontWeight="normal" my="4"/> */}
                     </Flex>

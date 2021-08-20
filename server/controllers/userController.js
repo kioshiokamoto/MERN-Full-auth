@@ -138,7 +138,7 @@ const userCtrl = {
                 httpOnly: true,
                 path: "/user/refresh_token",
                 maxAge: 7 * 24 * 60 * 60 * 1000,
-                // secure: true,
+                secure: true,
             });
             console.log('RF: ',refresh_token);
             res.json({ msg: "Login success!" });
