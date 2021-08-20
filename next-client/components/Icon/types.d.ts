@@ -77,6 +77,7 @@ export type IconName =
   | "bill"
   | "check"
   | "wp"
+  | "logo2"
 
 /**
  * Props SVG, incluyendo name, color, size y weight. No se debe usar el prop style.

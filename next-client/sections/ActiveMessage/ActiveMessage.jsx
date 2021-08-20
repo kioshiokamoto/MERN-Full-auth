@@ -22,7 +22,7 @@ export default function ActiveMessage() {
             Se ha enviado un mensaje de confirmación al correo proporcionado
             para poder iniciar sesión
           </Text>
-          <ZIcon name="logo" color="icon" />
+          <ZIcon name="logo2" color="letter" />
         </Flex>
       </div>
     </div>

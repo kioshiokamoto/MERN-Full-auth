@@ -60,6 +60,7 @@ import Cart from './Cart'
 import Bill from "./Bill"
 import Check from "./Check"
 import Whatsapp from "./Whatsapp"
+import Logo2 from "./Logo2"
 
 /**
  *
@@ -197,6 +198,8 @@ function VIcon({
       return <Calendar {...props} style={style} color={_color} />
     case "dowload":
       return <Dowload {...props} style={style} color={_color} />
+    case "logo2":
+      return <Logo2 {...props} style={style} color={_color} />
     default:
       return null
   }

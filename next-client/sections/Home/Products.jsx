@@ -13,14 +13,26 @@ export default function Products() {
     return (
         <Box backgroundColor="primary" pb="10">
             <Box className="generalWrapper">
-                <Text color="letter" fontSize="2xl" align="center" py="6" fontWeight="medium">Nuestros productos</Text>
+                <Text color="letter" fontSize="2xl" left="20px" py="6" fontWeight="medium">Medicamentos</Text>
                 <Grid templateColumns="repeat(4,1fr)">
                     {
                         products.length > 0 ? (
                             products?.map( product => (
                                 <CardProduct key={product.id} product={product} role={auth.user?.role}/>
                             ))
-                        ) : <p>No hay productos</p>
+                        ) : <p>No hay medicamentos registrados</p>
+                    }
+                </Grid>
+            </Box >
+            <Box className="generalWrapper">
+                <Text color="letter" fontSize="2xl" left="20px" py="6" fontWeight="medium">Protección COVID 19</Text>
+                <Grid templateColumns="repeat(4,1fr)">
+                    {
+                        products.length > 0 ? (
+                            products?.map( product => (
+                                <CardProduct key={product.id} product={product} role={auth.user?.role}/>
+                            ))
+                        ) : <p>No hay medicamentos registrados</p>
                     }
                 </Grid>
             </Box >

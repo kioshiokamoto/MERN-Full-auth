@@ -9,22 +9,22 @@ export default function CardRequest() {
     return (
       <Box p="6" borderRadius="3xl" bg="whiteAlpha.900" width="90%" height="100%">
         <Text fontSize="3xl" fontWeight="medium" color="letter" py="2">
-          ANOHONA
+          Pedido #1
         </Text>
         <Text textAlign="start" fontWeight="medium" color="letter" py="2">
-          Vendedor
+          Usuario
         </Text>
         <Text textAlign="start" fontWeight="light" color="letter">
           Caminla rojas
         </Text>
         <Text textAlign="start" fontWeight="medium" color="letter" py="2">
-          Correo electronico
+          Total pagado
         </Text>
         <Text textAlign="start" fontWeight="light" color="letter">
           camionla@gmail.com
         </Text>
         <Text textAlign="start" fontWeight="medium" color="letter" py="2">
-          Mensaje
+          Pedido
         </Text>
         <Box overflowY="auto" height="155px">
           <Text textAlign="start" fontWeight="light" color="letter">
@@ -45,19 +45,6 @@ export default function CardRequest() {
             my="3"
           >
             <ZIcon name="check" color="icon" size={20} />
-          </Circle>
-          <Circle
-            w="45px"
-            h="45px"
-            backgroundColor="primary"
-            boxShadow="0px 0.758065px 3.03226px rgba(0, 0, 0, 0.4);"
-            cursor="pointer"
-            d="flex"
-            justifyContent="center"
-            alignItems="center"
-            my="3"
-          >
-            <ZIcon name="wp" color="icon" size={25} />
           </Circle>
         </Flex>
       </Box>
